@@ -13,6 +13,7 @@ V1 foundation includes:
 - Supabase Auth architecture with GitHub OAuth support.
 - Local preview auth fallback for MVP verification without committing secrets.
 - Protected `/app` workspace with empty state, user identity, logout and project creation entry.
+- ViseCraft Proof Engine V0 foundation: claim model, evidence model, freshness model, deterministic GitHub/URL/deployment adapters, protected verification dashboard and claim report.
 - SEO metadata, Open Graph image, sitemap and robots.
 - Supabase auth foundation migration with RLS.
 
@@ -55,6 +56,14 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 
 Never expose a Supabase service role key in browser code.
 
+For server-side GitHub evidence checks:
+
+```bash
+GITHUB_TOKEN=github_fine_grained_read_only_token
+```
+
+The token is optional for public repositories and must never be exposed to browser code. Use the minimum read-only repository metadata permissions needed for commit, PR, issue, release and tag checks.
+
 ## Authentication
 
 Email/password and GitHub login use Supabase when configured. GitHub account login is identity only; repository connection will be a separate authorization flow inside the app.
@@ -70,7 +79,31 @@ supabase link --project-ref your-project-ref
 supabase db push
 ```
 
-Current migration: `supabase/migrations/20260715091736_auth_foundation.sql`.
+Current migrations:
+
+- `supabase/migrations/20260715091736_auth_foundation.sql`
+- `supabase/migrations/20260715123809_proof_engine_foundation.sql`
+
+## Proof Engine
+
+Proof Engine evaluates whether connected evidence supports individual project claims. It does not verify an entire startup and does not provide certification, audit, legal opinion, investment recommendation or guarantee of performance.
+
+Current MVP supports:
+
+- Claim-level data model.
+- Evidence trust model.
+- Verification run/result history.
+- Freshness TTL rules.
+- GitHub commit/PR/issue/release/tag source checks.
+- URL availability checks.
+- Deployment metadata abstraction.
+- VisePanda demo verification at `/app/projects/visepanda-demo/verification`.
+
+See:
+
+- `docs/PROOF_ENGINE.md`
+- `docs/VERIFICATION_DATA_MODEL.md`
+- `docs/VERIFICATION_PROMPTS.md`
 
 ## Deployment
 

@@ -1,0 +1,45 @@
+import { z } from "zod";
+
+export const verificationAIOutputSchema = z.object({
+  claimId: z.string(),
+  verdict: z.enum([
+    "unverified",
+    "self_reported",
+    "source_linked",
+    "code_backed",
+    "deployment_backed",
+    "partially_supported",
+    "insufficient_evidence",
+    "contradicted",
+    "stale",
+    "unable_to_verify",
+  ]),
+  confidence: z.enum(["low", "medium", "high"]),
+  supportedScope: z.array(z.string()),
+  unsupportedScope: z.array(z.string()),
+  reasoningSummary: z.string(),
+  supportingEvidenceIds: z.array(z.string()),
+  contradictingEvidenceIds: z.array(z.string()),
+  missingEvidenceTypes: z.array(z.string()),
+  overstatementDetected: z.boolean(),
+  freshnessConcern: z.boolean(),
+  limitations: z.array(z.string()),
+  recommendedRevision: z.string().optional(),
+});
+
+export const verificationResultSchema = z.object({
+  id: z.string(),
+  verificationRunId: z.string(),
+  claimId: z.string(),
+  verdict: verificationAIOutputSchema.shape.verdict,
+  confidence: verificationAIOutputSchema.shape.confidence,
+  freshnessStatus: z.enum(["current", "aging", "stale", "historical", "not_applicable"]),
+  evidenceCoverage: z.enum(["none", "partial", "strong", "contradictory"]),
+  supportingEvidenceCount: z.number().int().nonnegative(),
+  contradictingEvidenceCount: z.number().int().nonnegative(),
+  summary: z.string(),
+  limitations: z.array(z.string()),
+  recommendedEvidence: z.array(z.string()),
+  lastCheckedAt: z.string(),
+  expiresAt: z.string().optional(),
+});

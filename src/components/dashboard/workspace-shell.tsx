@@ -1,6 +1,7 @@
 "use client";
 
-import { ExternalLink, LockKeyhole, LogOut } from "lucide-react";
+import { ExternalLink, LockKeyhole, LogOut, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import { ViseCraftMark } from "@/components/shared/logo";
 import { CreateProjectLink } from "@/components/dashboard/create-project-link";
 import { workspaceContent } from "@/content/workspace";
@@ -49,6 +50,13 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
               >
                 {copy.viewDemo} <ExternalLink size={16} />
               </a>
+              <Link
+                className="inline-flex h-11 items-center gap-2 border border-[rgba(52,211,153,0.42)] px-4 text-sm text-[var(--jade)]"
+                href="/app/projects/visepanda-demo/verification"
+                style={{ borderRadius: "8px" }}
+              >
+                Proof Engine <ShieldCheck size={16} />
+              </Link>
             </div>
           </div>
 
