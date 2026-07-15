@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ViseCraft
 
-## Getting Started
+Turn real project progress into an investor-ready story.
 
-First, run the development server:
+ViseCraft is an independent SaaS product. It is not a VisePanda feature. VisePanda is an independent AI travel software project, and `vp.jtcao.space` is the first live case study that inspired this product.
+
+## Current Status
+
+V1 foundation includes:
+
+- Public launch page with product positioning, capabilities, workflow, VisePanda demo, use cases, privacy, pricing preview and CTA paths.
+- Login and signup entry.
+- Supabase Auth architecture with GitHub OAuth support.
+- Local preview auth fallback for MVP verification without committing secrets.
+- Protected `/app` workspace with empty state, user identity, logout and project creation entry.
+- SEO metadata, Open Graph image, sitemap and robots.
+- Supabase auth foundation migration with RLS.
+
+## Tech Stack
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS v4
+- Supabase Auth and PostgreSQL
+- Zod
+- Lucide React
+
+## Local Development
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For local preview without a Supabase project:
 
-## Learn More
+```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_AUTH_MODE=preview
+```
 
-To learn more about Next.js, take a look at the following resources:
+For production Supabase Auth:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.example
+NEXT_PUBLIC_AUTH_MODE=supabase
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Never expose a Supabase service role key in browser code.
 
-## Deploy on Vercel
+## Authentication
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Email/password and GitHub login use Supabase when configured. GitHub account login is identity only; repository connection will be a separate authorization flow inside the app.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+When Supabase env vars are absent, preview auth sets an HTTP-only cookie so `/login`, `/signup`, `/app` and logout can be verified locally. Preview auth is not production security.
+
+## Database Setup
+
+Apply migrations with Supabase CLI after linking a project:
+
+```bash
+supabase link --project-ref your-project-ref
+supabase db push
+```
+
+Current migration: `supabase/migrations/20260715091736_auth_foundation.sql`.
+
+## Deployment
+
+Deploy on Vercel or another Next.js-compatible host. Set the environment variables above, configure Supabase Auth redirect URLs, and add GitHub OAuth credentials in Supabase if GitHub login is enabled.
+
+## Roadmap
+
+See `docs/ROADMAP.md`.
