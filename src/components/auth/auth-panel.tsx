@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GitBranch, Loader2 } from "lucide-react";
 import { ViseCraftMark } from "@/components/shared/logo";
+import { LanguageSwitch } from "@/components/shared/language-switch";
 import { trackEvent } from "@/lib/analytics/track";
 import { getSupabaseConfig, isPreviewAuthEnabled } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/client";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { authContent } from "@/content/auth";
 
 type Mode = "login" | "signup";
 
@@ -18,6 +21,8 @@ export function AuthPanel({ mode }: { mode: Mode }) {
   const callbackError = searchParams.get("error");
   const supabaseConfig = useMemo(() => getSupabaseConfig(), []);
   const previewEnabled = useMemo(() => isPreviewAuthEnabled(), []);
+  const { locale } = useLocale();
+  const copy = authContent[locale];
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,17 +39,17 @@ export function AuthPanel({ mode }: { mode: Mode }) {
     setMessageTone("error");
 
     if (!email.includes("@")) {
-      setMessage("Enter a valid email address.");
+      setMessage(copy.errors.invalidEmail);
       return;
     }
 
     if (password.length < 8) {
-      setMessage("Password must be at least 8 characters.");
+      setMessage(copy.errors.shortPassword);
       return;
     }
 
     if (isSignup && (!name.trim() || !acceptedTerms)) {
-      setMessage("Add your name and accept the terms to continue.");
+      setMessage(copy.errors.incompleteSignup);
       return;
     }
 
@@ -72,7 +77,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
       }
 
       if (!previewEnabled) {
-        throw new Error("Authentication is not configured in this environment.");
+        throw new Error(copy.errors.authNotConfigured);
       }
 
       const endpoint = isSignup ? "/api/auth/preview-signup" : "/api/auth/preview-login";
@@ -84,7 +89,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
       const data = (await response.json().catch(() => ({}))) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(data.error ?? "Authentication failed.");
+        throw new Error(data.error ?? copy.errors.authFailed);
       }
 
       trackEvent(isSignup ? "signup_start" : "login_success");
@@ -92,7 +97,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
       router.refresh();
     } catch (error) {
       trackEvent("login_failure");
-      setMessage(error instanceof Error ? error.message : "Authentication failed.");
+      setMessage(error instanceof Error ? error.message : copy.errors.authFailed);
       setMessageTone("error");
     } finally {
       setLoading(false);
@@ -104,7 +109,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
     setMessageTone("error");
 
     if (!supabaseConfig.isConfigured) {
-      setMessage("GitHub login requires Supabase Auth to be configured. Use preview email login locally.");
+      setMessage(copy.errors.githubNeedsSupabase);
       return;
     }
 
@@ -124,7 +129,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
       }
     } catch (error) {
       trackEvent("login_failure");
-      setMessage(error instanceof Error ? error.message : "GitHub login failed.");
+      setMessage(error instanceof Error ? error.message : copy.errors.githubFailed);
       setLoading(false);
     }
   }
@@ -133,13 +138,13 @@ export function AuthPanel({ mode }: { mode: Mode }) {
     setMessage(null);
 
     if (!email.includes("@")) {
-      setMessage("Enter your email first, then request a reset link.");
+      setMessage(copy.errors.resetNeedsEmail);
       setMessageTone("error");
       return;
     }
 
     if (!supabaseConfig.isConfigured) {
-      setMessage("Password reset is available once Supabase Auth is configured.");
+      setMessage(copy.errors.resetPreview);
       setMessageTone("success");
       return;
     }
@@ -155,10 +160,10 @@ export function AuthPanel({ mode }: { mode: Mode }) {
         throw new Error(error.message);
       }
 
-      setMessage("Password reset email sent.");
+      setMessage(copy.errors.resetSent);
       setMessageTone("success");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Password reset failed.");
+      setMessage(error instanceof Error ? error.message : copy.errors.resetFailed);
       setMessageTone("error");
     } finally {
       setLoading(false);
@@ -168,29 +173,30 @@ export function AuthPanel({ mode }: { mode: Mode }) {
   return (
     <div className="grid min-h-screen bg-[var(--bg0)] text-[var(--text)] lg:grid-cols-[0.9fr_1.1fr]">
       <section className="flex min-h-[42vh] flex-col justify-between border-b border-[var(--line)] bg-[var(--bg1)] p-6 lg:min-h-screen lg:border-b-0 lg:border-r lg:p-10">
-        <ViseCraftMark />
+        <div className="flex items-center justify-between gap-4">
+          <ViseCraftMark />
+          <LanguageSwitch compact />
+        </div>
         <div className="max-w-xl py-16">
-          <p className="mono-label text-[var(--jade)]">Authentication entry</p>
+          <p className="mono-label text-[var(--jade)]">{copy.label}</p>
           <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
-            {isSignup ? "Create your ViseCraft workspace." : "Welcome back to ViseCraft."}
+            {isSignup ? copy.signupTitle : copy.loginTitle}
           </h1>
           <p className="mt-5 text-base leading-7 text-[var(--text-dim)]">
-            Account login is separate from GitHub repository connection. Signing in with GitHub does not grant ViseCraft repository access until you connect a project source inside the app.
+            {copy.explanation}
           </p>
         </div>
         <Link className="text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/">
-          Return to landing page
+          {copy.returnHome}
         </Link>
       </section>
 
       <section className="flex items-center justify-center p-6 lg:p-10">
         <div className="w-full max-w-md">
           <div className="border border-[var(--line)] bg-[var(--surface)] p-6" style={{ borderRadius: "14px" }}>
-            <h2 className="text-2xl font-semibold">{isSignup ? "Request early access" : "Sign in"}</h2>
+            <h2 className="text-2xl font-semibold">{isSignup ? copy.requestAccess : copy.signIn}</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--text-dim)]">
-              {isSignup
-                ? "Create a starter workspace for the private alpha flow."
-                : "Use email and password, or GitHub login when Supabase OAuth is configured."}
+              {isSignup ? copy.signupIntro : copy.loginIntro}
             </p>
 
             <button
@@ -199,21 +205,21 @@ export function AuthPanel({ mode }: { mode: Mode }) {
               onClick={signInWithGitHub}
               style={{ borderRadius: "8px" }}
             >
-              <GitBranch size={17} /> Sign in with GitHub
+              <GitBranch size={17} /> {copy.github}
             </button>
 
             <div className="my-6 flex items-center gap-3">
               <span className="h-px flex-1 bg-[var(--line)]" />
-              <span className="mono-label text-[var(--text-faint)]">or email</span>
+              <span className="mono-label text-[var(--text-faint)]">{copy.orEmail}</span>
               <span className="h-px flex-1 bg-[var(--line)]" />
             </div>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               {isSignup ? (
-                <Field label="Name" value={name} onChange={setName} autoComplete="name" placeholder="Ada Founder" />
+                <Field label={copy.name} value={name} onChange={setName} autoComplete="name" placeholder={copy.namePlaceholder} />
               ) : null}
-              <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" placeholder="founder@example.com" />
-              <Field label="Password" type="password" value={password} onChange={setPassword} autoComplete={isSignup ? "new-password" : "current-password"} placeholder="At least 8 characters" />
+              <Field label={copy.email} type="email" value={email} onChange={setEmail} autoComplete="email" placeholder={copy.emailPlaceholder} />
+              <Field label={copy.password} type="password" value={password} onChange={setPassword} autoComplete={isSignup ? "new-password" : "current-password"} placeholder={copy.passwordPlaceholder} />
 
               {isSignup ? (
                 <label className="flex gap-3 text-sm leading-6 text-[var(--text-dim)]">
@@ -223,7 +229,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
                     onChange={(event) => setAcceptedTerms(event.target.checked)}
                     type="checkbox"
                   />
-                  I agree to the Terms and understand ViseCraft is in early access.
+                  {copy.terms}
                 </label>
               ) : null}
 
@@ -248,29 +254,29 @@ export function AuthPanel({ mode }: { mode: Mode }) {
                 type="submit"
               >
                 {loading ? <Loader2 className="animate-spin" size={17} /> : null}
-                {isSignup ? "Create account" : "Sign in"}
+                {isSignup ? copy.createAccount : copy.signIn}
               </button>
             </form>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[var(--text-dim)]">
               {isSignup ? (
                 <Link className="hover:text-[var(--text)]" href="/login">
-                  Already have an account?
+                  {copy.alreadyHaveAccount}
                 </Link>
               ) : (
                 <button className="hover:text-[var(--text)]" onClick={sendReset} type="button">
-                  Forgot password?
+                  {copy.forgotPassword}
                 </button>
               )}
               <Link className="text-[var(--blue)]" href={isSignup ? "/login" : "/signup"}>
-                {isSignup ? "Sign in" : "Create account"}
+                {isSignup ? copy.signIn : copy.createAccount}
               </Link>
             </div>
           </div>
 
           {previewEnabled && !supabaseConfig.isConfigured ? (
             <p className="mt-4 border border-[var(--line)] bg-[var(--bg1)] px-4 py-3 text-xs leading-5 text-[var(--text-dim)]" style={{ borderRadius: "10px" }}>
-              Preview auth is active because Supabase env vars are not configured. It uses an HTTP-only cookie for local MVP verification. Production deployments should set Supabase Auth env vars and use real provider sessions.
+              {copy.previewNotice}
             </p>
           ) : null}
         </div>
