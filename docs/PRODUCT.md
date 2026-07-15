@@ -56,7 +56,7 @@ Current deployment is operator-assisted: the site is deployed through Vercel and
 ## Non-Goals
 
 - No fabricated traction, revenue, customer logos or funding claims.
-- No Canva-style deck editor in V1.
+- No Canva-style deck editor in the v1.0.x product series.
 - No automatic repository access through account login.
 - No SOC 2 or enterprise security claims until actually achieved.
 - No claim that subdomain provisioning is fully automated before Vercel + Spaceship DNS automation exists.

@@ -31,6 +31,14 @@ VisePanda is only the first live case study and demo project.
 - Do not commit secrets, tokens, private repository content or fabricated traction.
 - Update docs when code changes alter auth, data, routes, security or product promises.
 
+## Product Versioning
+
+- The current ViseCraft product version is `v1.0.4`.
+- Every completed product iteration increments only the patch number: `v1.0.5`, `v1.0.6`, and so on.
+- Keep `package.json`, the public version display, `README.md`, `docs/INDEX.md` and the project timeline synchronized in the same commit.
+- Add a timeline version only for a completed iteration with truthful supporting evidence; never pre-create or fabricate a release event.
+- Proof Engine has its own module version and must not be silently changed when the ViseCraft product version advances.
+
 ## Security Requirements
 
 - Use Supabase publishable keys only in public env vars.

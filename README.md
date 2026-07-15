@@ -1,5 +1,7 @@
 # ViseCraft
 
+Current product version: `v1.0.4`
+
 Turn every project in motion into a verifiable, living business story.
 
 ViseCraft is an independent SaaS platform that automatically transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.
@@ -10,7 +12,7 @@ It is not a VisePanda feature. VisePanda is an independent AI travel software pr
 
 ## Current Status
 
-V1 foundation includes:
+The `v1.0.4` foundation includes:
 
 - Public launch page with product positioning, capabilities, workflow, VisePanda demo, use cases, privacy, pricing preview and CTA paths.
 - Login and signup entry.

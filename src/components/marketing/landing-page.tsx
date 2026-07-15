@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import {
   landingContent,
+  productVersion,
   type ViewModeId,
 } from "@/content/landing";
 import { trackEvent } from "@/lib/analytics/track";
@@ -392,7 +393,7 @@ function ProductConsole({
     <div className="surface fade-up overflow-hidden" style={{ animationDelay: "110ms" }}>
       <div className="grid grid-cols-3 border-b border-[var(--line)]">
         {[
-          [copy.consoleLabels.version, "V1"],
+          [copy.consoleLabels.version, `v${productVersion}`],
           [copy.consoleLabels.phase, "MVP Foundation"],
           [copy.consoleLabels.lastVerified, localeValue(copy, "Jul 15 2026", "2026年7月15日")],
         ].map(([label, value]) => (
@@ -411,10 +412,12 @@ function ProductConsole({
           {copy.timelineEvents.map((item, index) => (
             <button
               key={item.title}
-              className="grid w-full grid-cols-[66px_18px_1fr] gap-3 border-b border-[var(--line)] p-4 text-left transition hover:bg-[var(--surface-hi)]"
+              className="grid w-full grid-cols-[76px_18px_1fr] gap-3 border-b border-[var(--line)] p-4 text-left transition hover:bg-[var(--surface-hi)]"
               onClick={() => setSelectedEvent(index)}
             >
               <span className="font-mono text-xs leading-5 text-[var(--text-faint)]">
+                <span className="text-[var(--jade)]">v{item.version}</span>
+                <br />
                 {item.date}
                 <br />
                 {item.time}
@@ -447,6 +450,7 @@ function ProductConsole({
           </div>
           <h2 className="mt-4 text-2xl font-semibold leading-tight">{event.title}</h2>
           <div className="mt-4 flex flex-wrap gap-2">
+            <EvidenceBadge label={`v${event.version}`} tone="blue" />
             <EvidenceBadge label={event.status} tone={event.tone as "jade" | "blue" | "amber"} />
             <EvidenceBadge label={event.evidence} tone="neutral" />
           </div>

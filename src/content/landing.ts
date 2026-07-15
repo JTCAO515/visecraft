@@ -1,6 +1,8 @@
 export type Locale = "en" | "zh";
 export type ViewModeId = "founder" | "investor" | "public";
 
+export const productVersion = "1.0.4";
+
 export const localeLabels: Record<Locale, string> = {
   en: "EN",
   zh: "中文",
@@ -150,9 +152,10 @@ export const landingContent = {
     ],
     timelineEvents: [
       {
+        version: "1.0.3",
         date: "Jul 15",
         time: "10:42 UTC",
-        title: "ViseCraft V1 launch page shipped",
+        title: "ViseCraft launch page shipped",
         status: "source-linked",
         evidence: "Source-linked",
         tone: "jade",
@@ -165,6 +168,7 @@ export const landingContent = {
         sources: ["Repository commit", "Product specification", "Auth callback route"],
       },
       {
+        version: "1.0.2",
         date: "Jul 12",
         time: "14:18 UTC",
         title: "Evidence model separated from product claims",
@@ -180,6 +184,7 @@ export const landingContent = {
         sources: ["Content module", "Design tokens", "Evidence labels"],
       },
       {
+        version: "1.0.1",
         date: "Jul 09",
         time: "09:31 UTC",
         title: "VisePanda case study defined",
@@ -408,9 +413,10 @@ export const landingContent = {
     ],
     timelineEvents: [
       {
+        version: "1.0.3",
         date: "7月15日",
         time: "10:42 UTC",
-        title: "ViseCraft V1 启动页上线",
+        title: "ViseCraft 启动页上线",
         status: "来源链接",
         evidence: "来源链接",
         tone: "jade",
@@ -421,6 +427,7 @@ export const landingContent = {
         sources: ["仓库提交", "产品规格", "Auth callback route"],
       },
       {
+        version: "1.0.2",
         date: "7月12日",
         time: "14:18 UTC",
         title: "证据模型与产品 claims 解耦",
@@ -434,6 +441,7 @@ export const landingContent = {
         sources: ["内容模块", "设计 token", "证据标签"],
       },
       {
+        version: "1.0.1",
         date: "7月09日",
         time: "09:31 UTC",
         title: "VisePanda 案例被定义",

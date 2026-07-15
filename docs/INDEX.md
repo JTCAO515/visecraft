@@ -16,6 +16,7 @@ Mandatory reading order:
 
 Current handoff snapshot:
 
+- Product version: `v1.0.4`. Each completed product iteration increments only the patch number (`v1.0.5`, `v1.0.6`, ...), then updates `package.json`, the public version display, the project timeline and this handoff snapshot together.
 - Active objective: Present ViseCraft as a living project-story SaaS platform, with Proof Engine as its core verification layer and BP creation/publishing as product capabilities.
 - Implemented: Next.js App Router, dark evidence-first design system, bilingual marketing/auth/workspace copy, preview/Supabase auth adapter, protected `/app`, baseline RLS migration, Proof Engine database migration, deterministic GitHub/URL/deployment adapters, structured rule-based Proof AI provider, VisePanda verification dashboard and claim report, platform-level homepage narrative, Proof Engine section, commercial BP Builder capability section and website publishing workflow.
 - Blockers: production Supabase Auth project, OAuth provider config, GitHub App installation, deployment-platform API credentials and automated Spaceship DNS provisioning are operator actions.
