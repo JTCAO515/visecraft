@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { AlertTriangle, RefreshCw, ShieldCheck } from "lucide-react";
+import { AlertTriangle, CheckCircle2, RefreshCw, ShieldCheck } from "lucide-react";
 import { VerdictBadge, verdictCopy } from "@/components/verification/verdict-badge";
+import { VerificationRefreshButton } from "@/components/verification/verification-refresh-button";
+import { EmptyState } from "@/components/ui/empty-state";
 import type { VerificationReport } from "@/lib/proof/types";
 
 function formatDate(value?: string) {
@@ -68,6 +70,9 @@ export function VerificationDashboard({
             <p className="mt-5 text-xs leading-5 text-[var(--text-faint)]">
               Last checked: {formatDate(report.run.completedAt)}
             </p>
+            <div className="mt-5 border-t border-[var(--line)] pt-5">
+              <VerificationRefreshButton />
+            </div>
           </aside>
         </div>
       </section>
@@ -152,7 +157,16 @@ export function VerificationDashboard({
               Proof Engine detected conflicting evidence. Open each claim report for the exact source check.
             </p>
           </div>
-        ) : null}
+        ) : (
+          <div className="mt-8">
+            <EmptyState
+              compact
+              description="The latest verification run did not find evidence that conflicts with the extracted claims. This is not a guarantee that no contradiction exists."
+              icon={<CheckCircle2 aria-hidden="true" size={20} />}
+              title="No contradictions detected"
+            />
+          </div>
+        )}
       </section>
     </main>
   );

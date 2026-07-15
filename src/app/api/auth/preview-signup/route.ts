@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { encodePreviewSession, previewSessionCookie } from "@/lib/auth/preview-session";
 import { isPreviewAuthEnabled } from "@/lib/supabase/config";
+import { mapZodErrors } from "@/lib/forms/errors";
 
 const signupSchema = z.object({
   name: z.string().min(2),
@@ -12,13 +13,25 @@ const signupSchema = z.object({
 
 export async function POST(request: NextRequest) {
   if (!isPreviewAuthEnabled()) {
-    return NextResponse.json({ error: "Preview auth is disabled." }, { status: 403 });
+    return NextResponse.json(
+      { error: { code: "preview_auth_disabled", message: "Preview auth is disabled." } },
+      { status: 403 },
+    );
   }
 
   const parsed = signupSchema.safeParse(await request.json().catch(() => null));
 
   if (!parsed.success) {
-    return NextResponse.json({ error: "Complete all fields and accept the terms." }, { status: 400 });
+    return NextResponse.json(
+      {
+        error: {
+          code: "invalid_signup_fields",
+          message: "Complete all fields and accept the terms.",
+          fieldErrors: mapZodErrors(parsed.error),
+        },
+      },
+      { status: 400 },
+    );
   }
 
   const response = NextResponse.json({ ok: true });

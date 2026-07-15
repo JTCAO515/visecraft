@@ -3,16 +3,21 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { GitBranch, Loader2 } from "lucide-react";
+import { GitBranch } from "lucide-react";
 import { ViseCraftMark } from "@/components/shared/logo";
 import { LanguageSwitch } from "@/components/shared/language-switch";
+import { Field } from "@/components/ui/field";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { trackEvent } from "@/lib/analytics/track";
+import { ApiError, apiFetch } from "@/lib/api/client";
+import type { FieldErrors } from "@/lib/forms/errors";
 import { getSupabaseConfig, isPreviewAuthEnabled } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/client";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { authContent } from "@/content/auth";
 
 type Mode = "login" | "signup";
+type AuthField = "name" | "email" | "password" | "acceptedTerms";
 
 export function AuthPanel({ mode }: { mode: Mode }) {
   const router = useRouter();
@@ -30,6 +35,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(callbackError);
   const [messageTone, setMessageTone] = useState<"error" | "success">("error");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors<AuthField>>({});
 
   const isSignup = mode === "signup";
 
@@ -37,18 +43,23 @@ export function AuthPanel({ mode }: { mode: Mode }) {
     event.preventDefault();
     setMessage(null);
     setMessageTone("error");
+    setFieldErrors({});
 
     if (!email.includes("@")) {
-      setMessage(copy.errors.invalidEmail);
+      setFieldErrors({ email: copy.errors.invalidEmail });
       return;
     }
 
     if (password.length < 8) {
-      setMessage(copy.errors.shortPassword);
+      setFieldErrors({ password: copy.errors.shortPassword });
       return;
     }
 
     if (isSignup && (!name.trim() || !acceptedTerms)) {
+      setFieldErrors({
+        ...(!name.trim() ? { name: copy.errors.incompleteSignup } : {}),
+        ...(!acceptedTerms ? { acceptedTerms: copy.errors.incompleteSignup } : {}),
+      });
       setMessage(copy.errors.incompleteSignup);
       return;
     }
@@ -81,22 +92,20 @@ export function AuthPanel({ mode }: { mode: Mode }) {
       }
 
       const endpoint = isSignup ? "/api/auth/preview-signup" : "/api/auth/preview-login";
-      const response = await fetch(endpoint, {
+      await apiFetch<{ ok: true }>(endpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name, email, password, acceptedTerms }),
       });
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
-
-      if (!response.ok) {
-        throw new Error(data.error ?? copy.errors.authFailed);
-      }
 
       trackEvent(isSignup ? "signup_start" : "login_success");
       router.push(nextPath);
       router.refresh();
     } catch (error) {
       trackEvent("login_failure");
+      if (error instanceof ApiError && error.fieldErrors) {
+        setFieldErrors(error.fieldErrors as FieldErrors<AuthField>);
+      }
       setMessage(error instanceof Error ? error.message : copy.errors.authFailed);
       setMessageTone("error");
     } finally {
@@ -216,14 +225,39 @@ export function AuthPanel({ mode }: { mode: Mode }) {
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               {isSignup ? (
-                <Field label={copy.name} value={name} onChange={setName} autoComplete="name" placeholder={copy.namePlaceholder} />
+                <Field
+                  autoComplete="name"
+                  error={fieldErrors.name}
+                  label={copy.name}
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder={copy.namePlaceholder}
+                  value={name}
+                />
               ) : null}
-              <Field label={copy.email} type="email" value={email} onChange={setEmail} autoComplete="email" placeholder={copy.emailPlaceholder} />
-              <Field label={copy.password} type="password" value={password} onChange={setPassword} autoComplete={isSignup ? "new-password" : "current-password"} placeholder={copy.passwordPlaceholder} />
+              <Field
+                autoComplete="email"
+                error={fieldErrors.email}
+                label={copy.email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder={copy.emailPlaceholder}
+                type="email"
+                value={email}
+              />
+              <Field
+                autoComplete={isSignup ? "new-password" : "current-password"}
+                error={fieldErrors.password}
+                label={copy.password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder={copy.passwordPlaceholder}
+                type="password"
+                value={password}
+              />
 
               {isSignup ? (
                 <label className="flex gap-3 text-sm leading-6 text-[var(--text-dim)]">
                   <input
+                    aria-describedby={fieldErrors.acceptedTerms ? "accepted-terms-error" : undefined}
+                    aria-invalid={Boolean(fieldErrors.acceptedTerms)}
                     checked={acceptedTerms}
                     className="mt-1 size-4 accent-[var(--jade)]"
                     onChange={(event) => setAcceptedTerms(event.target.checked)}
@@ -231,6 +265,12 @@ export function AuthPanel({ mode }: { mode: Mode }) {
                   />
                   {copy.terms}
                 </label>
+              ) : null}
+
+              {fieldErrors.acceptedTerms ? (
+                <p className="text-xs leading-5 text-[var(--rose)]" id="accepted-terms-error">
+                  {fieldErrors.acceptedTerms}
+                </p>
               ) : null}
 
               {message ? (
@@ -247,15 +287,9 @@ export function AuthPanel({ mode }: { mode: Mode }) {
                 </p>
               ) : null}
 
-              <button
-                className="flex h-11 w-full items-center justify-center gap-2 bg-[var(--jade)] text-sm font-semibold text-[#04100b] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-                disabled={loading}
-                style={{ borderRadius: "8px" }}
-                type="submit"
-              >
-                {loading ? <Loader2 className="animate-spin" size={17} /> : null}
+              <SubmitButton loading={loading} loadingLabel={isSignup ? copy.createAccount : copy.signIn}>
                 {isSignup ? copy.createAccount : copy.signIn}
-              </button>
+              </SubmitButton>
             </form>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[var(--text-dim)]">
@@ -282,36 +316,5 @@ export function AuthPanel({ mode }: { mode: Mode }) {
         </div>
       </section>
     </div>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  type = "text",
-  autoComplete,
-  placeholder,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  type?: string;
-  autoComplete: string;
-  placeholder: string;
-}) {
-  return (
-    <label className="block text-sm">
-      <span className="mono-label text-[var(--text-faint)]">{label}</span>
-      <input
-        autoComplete={autoComplete}
-        className="mt-2 h-11 w-full border border-[var(--line-hi)] bg-[var(--bg0)] px-3 text-[var(--text)] outline-none transition placeholder:text-[var(--text-faint)] focus:border-[var(--jade)]"
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        style={{ borderRadius: "8px" }}
-      />
-    </label>
   );
 }
