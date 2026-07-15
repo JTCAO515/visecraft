@@ -2,7 +2,11 @@
 
 Turn real project progress into an investor-ready story.
 
-ViseCraft is an independent SaaS product. It is not a VisePanda feature. VisePanda is an independent AI travel software project, and `vp.jtcao.space` is the first live case study that inspired this product.
+ViseCraft is an independent SaaS product. Its core product is ViseCraft Proof Engine: claim-level verification for living BP, timeline and investor-update claims.
+
+The main output is a proof-backed dynamic BP/report that can be published as a website, currently through an operator-assisted Vercel + Spaceship DNS flow for subdomains such as `project-name.jtcao.space`.
+
+It is not a VisePanda feature. VisePanda is an independent AI travel software project, and `vp.jtcao.space` is the first live case study that inspired this product.
 
 ## Current Status
 
@@ -14,6 +18,7 @@ V1 foundation includes:
 - Local preview auth fallback for MVP verification without committing secrets.
 - Protected `/app` workspace with empty state, user identity, logout and project creation entry.
 - ViseCraft Proof Engine V0 foundation: claim model, evidence model, freshness model, deterministic GitHub/URL/deployment adapters, protected verification dashboard and claim report.
+- Homepage positioning centered on Proof Engine first, formal commercial BP creation second and publishable BP/report websites third.
 - SEO metadata, Open Graph image, sitemap and robots.
 - Supabase auth foundation migration with RLS.
 

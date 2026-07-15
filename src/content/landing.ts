@@ -9,11 +9,12 @@ export const localeLabels: Record<Locale, string> = {
 export const landingContent = {
   en: {
     navItems: [
-      { label: "Product", href: "#product" },
+      { label: "Proof Engine", href: "#proof-engine" },
+      { label: "BP Builder", href: "#bp-builder" },
+      { label: "Publish", href: "#publish" },
       { label: "How it works", href: "#how-it-works" },
       { label: "Use cases", href: "#use-cases" },
       { label: "Demo", href: "#demo" },
-      { label: "Pricing", href: "#pricing" },
     ],
     actions: {
       signIn: "Sign in",
@@ -24,12 +25,66 @@ export const landingContent = {
       joinEarlyAccess: "Join early access",
     },
     hero: {
-      title: "Turn real project progress into an investor-ready story.",
+      title: "Proof-backed startup reporting, published as a living website.",
       subtitle:
-        "ViseCraft connects your project activity, identifies meaningful progress and turns it into a living pitch page backed by real evidence.",
+        "Claim-level verification, formal BP creation and publishable investor reports in one workflow.",
     },
     trust:
-      "Built from a real founder workflow. First demonstrated through the live development history of VisePanda.",
+      "Proof Engine first. Commercial BP second. Published website third.",
+    proofEngine: {
+      label: "Core product",
+      title: "ViseCraft Proof Engine is the verification layer behind every living BP.",
+      body:
+        "Claim-level checks for evidence, freshness, limitations and contradictions.",
+      rows: [
+        ["Claim-level", "Each major BP, timeline and update statement becomes a specific claim with its own result."],
+        ["Evidence-backed", "GitHub, releases, issues, deployment records, URLs and founder notes keep source context attached."],
+        ["Freshness-aware", "Current claims expire. A live URL, active project or current version must be rechecked."],
+        ["Non-misleading", "The system explains limitations instead of certifying the whole company or implying investment quality."],
+      ],
+      profile: [
+        ["Product evidence", "Code-backed"],
+        ["Deployment evidence", "Source-linked"],
+        ["Usage evidence", "Not provided"],
+        ["Freshness", "Current"],
+        ["Contradictions", "None detected"],
+      ],
+    },
+    publish: {
+      label: "One-click publishing direction",
+      title: "Create a name, publish a BP/report, and get a website people can visit.",
+      body:
+        "Choose a project name. Generate the BP/report. Publish it as a website such as project-name.jtcao.space.",
+      current:
+        "Current stage: Vercel deployment + Spaceship DNS are operator-assisted.",
+      steps: [
+        ["Name", "Choose a project slug, for example atlas-ai."],
+        ["Generate", "Build the living BP, timeline, evidence summaries and audience views."],
+        ["Deploy", "Publish as atlas-ai.jtcao.space or another configured domain."],
+        ["Share", "Send the link to investors, partners, advisors or the public."],
+      ],
+    },
+    bpBuilder: {
+      label: "Commercial BP capability",
+      title: "Build a formal investor-ready BP, not just a project log.",
+      body:
+        "A polished commercial BP structure with evidence-aware claims.",
+      modules: [
+        ["Executive summary", "A crisp company narrative, stage, product thesis, current status and ask."],
+        ["Problem and solution", "Market pain, product answer, target user and why now."],
+        ["Product and architecture", "Product workflow, technical moat, integrations, roadmap and release history."],
+        ["Market and business model", "Market framing, monetization logic, pricing hypothesis and go-to-market path."],
+        ["Traction and milestones", "Progress, demos, launches, evidence-backed timeline and current gaps."],
+        ["Team, risks and ask", "Founder context, execution risks, next milestones, funding needs and use of funds."],
+      ],
+      outputs: [
+        "Investor View",
+        "Founder View",
+        "Public View",
+        "Weekly Update",
+        "Living BP Website",
+      ],
+    },
     sourceStrip: [
       { label: "GitHub", status: "supported" },
       { label: "Releases", status: "supported" },
@@ -53,14 +108,14 @@ export const landingContent = {
     ],
     capabilities: [
       {
-        title: "Living Pitch Pages",
-        body: "Turn a static BP into a structured project page that can evolve with product story, progress, roadmap, team and ask.",
-        points: ["Product story", "Market and model", "Roadmap", "Funding ask"],
+        title: "Proof Engine",
+        body: "Check each important claim against source evidence, freshness rules and limitations before it appears as trusted progress.",
+        points: ["Claim extraction", "Evidence matching", "Freshness", "Contradictions"],
       },
       {
-        title: "Verified Project Timeline",
-        body: "Organize meaningful events into a timeline and keep source links close to every claim.",
-        points: ["Commits", "Pull requests", "Issues", "Releases"],
+        title: "Published BP Websites",
+        body: "Turn a dynamic BP or investor report into a deployable website with a memorable project subdomain.",
+        points: ["Living BP", "Investor report", "Public page", "Share link"],
       },
       {
         title: "Technical-to-Business Translation",
@@ -89,15 +144,11 @@ export const landingContent = {
         title: "Review meaningful progress",
         body: "Accept, edit, merge or hide generated events before anything becomes part of the story.",
       },
-      {
-        step: "04",
-        title: "Build your living story",
-        body: "Generate timelines, milestones, roadmap rows, evidence summaries and BP sections.",
-      },
+      { step: "04", title: "Verify the claims", body: "Proof Engine checks evidence, freshness and limitations at claim level before the report is trusted." },
       {
         step: "05",
         title: "Publish and share",
-        body: "Share a public, unlisted or protected page with investors, partners or the public.",
+        body: "Deploy the BP/report as a website, currently operator-assisted through Vercel plus Spaceship DNS for jtcao.space subdomains.",
       },
     ],
     timelineEvents: [
@@ -193,16 +244,19 @@ export const landingContent = {
     ],
     sections: {
       problem: ["Problem", "Static decks cannot keep up with real execution.", "Static deck", "Living project story"],
-      product: ["Product", "Progress infrastructure, narrative engine, presentation layer."],
+      proof: ["Proof Engine", "The main product is verification, not decoration."],
+      bpBuilder: ["BP Builder", "Formal commercial BP structure, backed by claim-level evidence."],
+      publish: ["Publish", "A dynamic BP should become a real website, not another file attachment."],
+      product: ["Product system", "Proof Engine, Narrative Engine and one-click publishing."],
       how: ["How it works", "From source activity to a living project story."],
-      demo: ["Live demo", "VisePanda is the first real case study, not the ViseCraft product."],
+      demo: ["Live demo", "VisePanda live interactive BP."],
       useCases: ["Use cases", "Built for teams that need trustable progress, not prettier slides."],
       privacy: ["Privacy and evidence", "Private by default. Evidence-aware by design."],
       pricing: ["Pricing preview", "Early access first. Commercial plans later."],
     },
     demo: {
       title: "VisePanda - Live case study",
-      body: "VisePanda is an independent AI travel software project. Its interactive project page became the original inspiration for ViseCraft.",
+      body: "A live interactive BP with timeline, roadmap, version history and project evidence.",
       cta: "Explore the live VisePanda story",
       rows: ["Timeline", "Version history", "Development challenge", "Roadmap", "Investor view"],
     },
@@ -212,7 +266,7 @@ export const landingContent = {
       ["Human-confirmed AI", "Generated narratives require user review before they become accepted project events."],
     ],
     finalCta: {
-      title: "Your project is already telling a story. ViseCraft helps you make it visible.",
+      title: "Give your project a name. Turn its evidence-backed story into a website.",
     },
     consoleLabels: {
       version: "Version",
@@ -238,11 +292,12 @@ export const landingContent = {
   },
   zh: {
     navItems: [
-      { label: "产品", href: "#product" },
+      { label: "Proof Engine", href: "#proof-engine" },
+      { label: "BP 制作", href: "#bp-builder" },
+      { label: "发布网站", href: "#publish" },
       { label: "工作流", href: "#how-it-works" },
       { label: "使用场景", href: "#use-cases" },
       { label: "案例", href: "#demo" },
-      { label: "价格", href: "#pricing" },
     ],
     actions: {
       signIn: "登录",
@@ -253,11 +308,65 @@ export const landingContent = {
       joinEarlyAccess: "申请早期访问",
     },
     hero: {
-      title: "把真实项目进展，转化为投资人看得懂的项目故事。",
+      title: "带证据验证的创业汇报，一键发布成动态网站。",
       subtitle:
-        "ViseCraft 连接项目活动，识别真正有意义的进展，并生成带证据的动态 BP、项目时间轴和投资人更新。",
+        "Claim 级验证、正式商业 BP 制作、可发布投资人汇报，在一个工作流里完成。",
     },
-    trust: "源自真实创始人工作流。VisePanda 的动态项目展示，是 ViseCraft 的第一个真实案例。",
+    trust: "第一核心：Proof Engine。第二核心：正式商业 BP。第三核心：发布成网站。",
+    proofEngine: {
+      label: "核心产品",
+      title: "ViseCraft Proof Engine 是每份动态 BP 背后的验证层。",
+      body:
+        "对关键声明逐条检查证据、时效、限制和矛盾。",
+      rows: [
+        ["Claim 级验证", "每条重要 BP、时间轴和周报表述都有独立验证结果。"],
+        ["证据支持", "GitHub、版本发布、Issue、部署记录、URL 和创始人笔记都保留来源上下文。"],
+        ["时效检查", "当前在线、项目活跃、当前版本等声明必须定期重新检查。"],
+        ["不误导", "系统解释限制，不认证整个公司，也不暗示投资价值。"],
+      ],
+      profile: [
+        ["产品证据", "代码支持"],
+        ["部署证据", "来源链接"],
+        ["用户使用证据", "未提供"],
+        ["时效", "当前"],
+        ["矛盾", "未发现"],
+      ],
+    },
+    publish: {
+      label: "一键发布方向",
+      title: "取一个名字，生成 BP/汇报，并变成所有人能看的项目网站。",
+      body:
+        "选择项目名称，生成 BP/汇报，并发布为 project-name.jtcao.space 这类网站。",
+      current:
+        "当前阶段：Vercel 部署 + Spaceship DNS 由 operator 辅助手动完成。",
+      steps: [
+        ["命名", "选择项目 slug，例如 atlas-ai。"],
+        ["生成", "生成动态 BP、时间轴、证据摘要和多受众视图。"],
+        ["部署", "发布成 atlas-ai.jtcao.space 或其他已配置域名。"],
+        ["分享", "把链接发给投资人、合作方、顾问或公众。"],
+      ],
+    },
+    bpBuilder: {
+      label: "正式商业 BP 能力",
+      title: "制作投资人能直接阅读的正式商业化 BP，而不只是项目日志。",
+      body:
+        "成熟商业 BP 结构，关键结论继续连接证据。",
+      modules: [
+        ["执行摘要", "公司叙事、阶段、产品判断、当前状态和融资需求。"],
+        ["问题与解决方案", "市场痛点、产品答案、目标用户和为什么是现在。"],
+        ["产品与架构", "产品流程、技术壁垒、集成、路线图和版本历史。"],
+        ["市场与商业模式", "市场框架、变现逻辑、定价假设和 go-to-market 路径。"],
+        ["进展与里程碑", "项目进展、Demo、上线记录、证据支持时间轴和当前缺口。"],
+        ["团队、风险与融资需求", "创始人背景、执行风险、下一阶段里程碑、融资金额和资金用途。"],
+      ],
+      outputs: [
+        "投资人视图",
+        "创始人视图",
+        "公开视图",
+        "周报更新",
+        "动态 BP 网站",
+      ],
+    },
     sourceStrip: [
       { label: "GitHub", status: "已支持" },
       { label: "版本发布", status: "已支持" },
@@ -281,14 +390,14 @@ export const landingContent = {
     ],
     capabilities: [
       {
-        title: "动态 BP 页面",
-        body: "把静态 BP 转化成结构化项目页面，持续呈现产品故事、进展、路线图、团队和融资需求。",
-        points: ["产品故事", "市场与商业模式", "Roadmap", "融资需求"],
+        title: "Proof Engine",
+        body: "在项目进展被展示为可信叙事之前，先逐条检查声明、证据、时效和限制。",
+        points: ["声明提取", "证据匹配", "时效检查", "矛盾检测"],
       },
       {
-        title: "可追溯项目时间轴",
-        body: "把重要项目事件组织成时间轴，并让每个关键结论都靠近真实来源。",
-        points: ["Commits", "Pull requests", "Issues", "Releases"],
+        title: "发布成 BP 网站",
+        body: "把动态 BP 或投资人汇报变成可部署的网站，并绑定一个容易分享的项目子域名。",
+        points: ["动态 BP", "投资人汇报", "公开页面", "分享链接"],
       },
       {
         title: "技术到商业的翻译",
@@ -305,8 +414,8 @@ export const landingContent = {
       { step: "01", title: "创建项目", body: "填写公司、产品、市场、阶段、创始人信息和默认可见性。" },
       { step: "02", title: "连接数据源", body: "第一阶段从 GitHub 活动和创始人笔记开始，后续逐步支持更多工具。" },
       { step: "03", title: "审核有意义的进展", body: "接受、编辑、合并或隐藏系统生成的候选事件。" },
-      { step: "04", title: "生成动态项目故事", body: "生成时间轴、里程碑、路线图、证据摘要和 BP 模块。" },
-      { step: "05", title: "发布并分享", body: "通过公开、非公开或受保护链接分享给投资人、合作方或公众。" },
+      { step: "04", title: "验证项目声明", body: "Proof Engine 在汇报被信任前，逐条检查证据、时效、限制和矛盾。" },
+      { step: "05", title: "发布并分享", body: "把 BP/汇报部署成网站。目前通过 Vercel 加 Spaceship DNS 手动配置 jtcao.space 子域名。" },
     ],
     timelineEvents: [
       {
@@ -368,16 +477,19 @@ export const landingContent = {
     ],
     sections: {
       problem: ["问题", "静态 BP 跟不上真实执行。", "静态 BP", "动态项目故事"],
-      product: ["产品", "进展基础设施、叙事引擎和展示层。"],
+      proof: ["Proof Engine", "核心产品是验证，不是装饰。"],
+      bpBuilder: ["BP 制作", "正式商业 BP 结构，并由 claim 级证据支持。"],
+      publish: ["发布", "动态 BP 应该变成真正的网站，而不是另一个附件。"],
+      product: ["产品系统", "Proof Engine、叙事引擎和一键发布。"],
       how: ["工作流", "从项目活动到动态项目故事。"],
-      demo: ["真实案例", "VisePanda 是第一个真实案例，不是 ViseCraft 产品本身。"],
+      demo: ["真实案例", "VisePanda 动态交互式 BP。"],
       useCases: ["使用场景", "为需要可信进展展示的团队而生，不只是让幻灯片更漂亮。"],
       privacy: ["隐私与证据", "默认私有，证据优先。"],
       pricing: ["价格预览", "先开放早期访问，商业计划后续发布。"],
     },
     demo: {
       title: "VisePanda - 真实案例",
-      body: "VisePanda 是一个独立的入境游 AI 软件项目。它的交互式项目页面，是 ViseCraft 的最初灵感来源。",
+      body: "一个包含时间轴、Roadmap、版本历史和项目证据的动态交互式 BP。",
       cta: "查看 VisePanda 真实项目故事",
       rows: ["时间轴", "版本历史", "开发挑战", "Roadmap", "投资人视图"],
     },
@@ -387,7 +499,7 @@ export const landingContent = {
       ["AI 需人工确认", "AI 生成内容在成为正式项目事件前，需要用户审核。"],
     ],
     finalCta: {
-      title: "你的项目已经在讲述一个故事。ViseCraft 帮你把它变得可见、可读、可验证。",
+      title: "给项目取一个名字，把带证据的创业故事发布成网站。",
     },
     consoleLabels: {
       version: "版本",

@@ -20,3 +20,20 @@
 - Unblock condition: `Sign in with GitHub` redirects through Supabase and returns to `/auth/callback`.
 - Verification: login succeeds and no repository permissions are requested beyond identity/email scopes.
 - Rollback: disable GitHub provider in Supabase Auth.
+
+## OA-003 Publish BP/Report Website on `jtcao.space`
+
+- Purpose: publish a generated ViseCraft BP/report as a real website under a project subdomain such as `project-name.jtcao.space`.
+- Owner: operator.
+- Environment: Vercel project plus Spaceship DNS for `jtcao.space`.
+- Placeholder names: `PROJECT_SLUG`, `PUBLISH_DOMAIN`, `VERCEL_PROJECT_ID`, `SPACESHIP_DNS_RECORD`.
+- Current status: manual/operator-assisted. This must not be marketed as fully automated provisioning until the domain and deployment APIs are implemented.
+- Prerequisite: generated BP/report build output and selected project slug.
+- Manual flow:
+  1. Deploy the project/report site through Vercel.
+  2. Add or update the matching subdomain record in Spaceship DNS for `jtcao.space`.
+  3. Wait for DNS propagation and Vercel domain verification.
+  4. Verify the public URL loads the intended BP/report.
+- Unblock condition: the selected URL, for example `PROJECT_SLUG.jtcao.space`, returns the published BP/report.
+- Verification: open the URL in a private browser window and confirm the report content, visibility mode and evidence summaries match the intended published state.
+- Rollback: remove the Vercel domain binding and delete or revert the Spaceship DNS record.

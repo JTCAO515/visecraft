@@ -178,54 +178,90 @@ export function LandingPage() {
         </div>
       </section>
 
-      <Section id="problem" label={copy.sections.problem[0]} title={copy.sections.problem[1]}>
+      <Section id="proof-engine" label={copy.sections.proof[0]} title={copy.sections.proof[1]}>
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div className="border border-[var(--line)] bg-[var(--bg1)] p-6" style={{ borderRadius: "12px" }}>
-            <p className="mono-label text-[var(--rose)]">{copy.sections.problem[2]}</p>
-            <div className="mt-5 grid gap-3">
-              {copy.problems.map((problem) => (
-                <p key={problem} className="border-b border-[var(--line)] pb-3 text-sm leading-6 text-[var(--text-dim)] last:border-b-0 last:pb-0">
-                  {problem}
-                </p>
-              ))}
-            </div>
-          </div>
-          <div className="border border-[var(--line)] bg-[var(--bg2)] p-6" style={{ borderRadius: "12px" }}>
-            <p className="mono-label text-[var(--jade)]">{copy.sections.problem[3]}</p>
-            <div className="mt-5 grid gap-4">
-              {copy.livingStoryRows.map(([label, body]) => (
-                <div key={label} className="grid gap-2 border-b border-[var(--line)] pb-4 last:border-b-0 last:pb-0 md:grid-cols-[120px_1fr]">
+          <div className="border-l border-[var(--jade)] bg-[var(--bg1)] p-6" style={{ borderRadius: "0 12px 12px 0" }}>
+            <p className="mono-label text-[var(--jade)]">{copy.proofEngine.label}</p>
+            <h3 className="mt-4 max-w-2xl text-3xl font-semibold leading-tight">{copy.proofEngine.title}</h3>
+            <p className="mt-5 leading-7 text-[var(--text-dim)]">{copy.proofEngine.body}</p>
+            <div className="mt-6 grid gap-3">
+              {copy.proofEngine.rows.map(([label, body]) => (
+                <div key={label} className="grid gap-2 border-t border-[var(--line)] pt-4 md:grid-cols-[150px_1fr]">
                   <span className="mono-label text-[var(--text-faint)]">{label}</span>
                   <span className="text-sm leading-6 text-[var(--text-dim)]">{body}</span>
                 </div>
               ))}
             </div>
           </div>
+
+          <div className="surface overflow-hidden">
+            <div className="border-b border-[var(--line)] p-5">
+              <p className="mono-label text-[var(--text-faint)]">Verification profile</p>
+            </div>
+            {copy.proofEngine.profile.map(([label, value]) => (
+              <div key={label} className="grid gap-3 border-b border-[var(--line)] p-5 last:border-b-0 md:grid-cols-[1fr_auto] md:items-center">
+                <span className="text-sm text-[var(--text-dim)]">{label}</span>
+                <EvidenceBadge
+                  label={value}
+                  tone={value.includes("Not") || value.includes("未") ? "amber" : value.includes("Code") || value.includes("代码") ? "jade" : "blue"}
+                />
+              </div>
+            ))}
+            <div className="border-t border-[var(--line-hi)] p-5">
+              <p className="text-xs leading-5 text-[var(--text-faint)]">
+                {localeValue(
+                  copy,
+                  "No single project score. Each claim keeps its own evidence, verdict, freshness and limitations.",
+                  "不做单一项目评分。每条声明都保留自己的证据、结论、时效和限制。",
+                )}
+              </p>
+            </div>
+          </div>
         </div>
       </Section>
 
-      <Section id="product" label={copy.sections.product[0]} title={copy.sections.product[1]}>
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="space-y-4">
-            <Comparison label={copy.consoleLabels.raw} items={copy.comparisons.raw} />
-            <div className="mono-label flex items-center gap-2 text-[var(--jade)]">
-              <ArrowRight size={15} /> {copy.consoleLabels.translated}
+      <Section id="bp-builder" label={copy.sections.bpBuilder[0]} title={copy.sections.bpBuilder[1]}>
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="border-t border-[var(--line-hi)] pt-5">
+            <p className="mono-label text-[var(--jade)]">{copy.bpBuilder.label}</p>
+            <h3 className="mt-4 text-3xl font-semibold leading-tight">{copy.bpBuilder.title}</h3>
+            <p className="mt-5 leading-7 text-[var(--text-dim)]">{copy.bpBuilder.body}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {copy.bpBuilder.outputs.map((item) => (
+                <EvidenceBadge key={item} label={item} tone="blue" />
+              ))}
             </div>
-            <Comparison label={copy.consoleLabels.narrative} items={copy.comparisons.narrative} />
           </div>
+
           <div className="grid gap-px overflow-hidden border border-[var(--line)] bg-[var(--line)] md:grid-cols-2" style={{ borderRadius: "12px" }}>
-            {copy.capabilities.map((capability) => (
-              <article key={capability.title} className="bg-[var(--bg1)] p-6">
-                <h3 className="text-xl font-semibold">{capability.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">{capability.body}</p>
-                <ul className="mt-5 space-y-2">
-                  {capability.points.map((point) => (
-                    <li key={point} className="flex items-center gap-2 text-sm text-[var(--text)]">
-                      <Check size={15} className="text-[var(--jade)]" /> {point}
-                    </li>
-                  ))}
-                </ul>
+            {copy.bpBuilder.modules.map(([title, body]) => (
+              <article key={title} className="bg-[var(--bg1)] p-5">
+                <p className="mono-label text-[var(--text-faint)]">BP module</p>
+                <h3 className="mt-3 text-xl font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">{body}</p>
               </article>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section id="publish" label={copy.sections.publish[0]} title={copy.sections.publish[1]}>
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="surface p-6">
+            <p className="mono-label text-[var(--jade)]">{copy.publish.label}</p>
+            <h3 className="mt-4 text-3xl font-semibold leading-tight">{copy.publish.title}</h3>
+            <p className="mt-5 leading-7 text-[var(--text-dim)]">{copy.publish.body}</p>
+            <p className="mt-5 border-t border-[var(--line)] pt-5 text-sm leading-6 text-[var(--amber)]">
+              {copy.publish.current}
+            </p>
+          </div>
+          <div className="grid border-y border-[var(--line)]">
+            {copy.publish.steps.map(([label, body], index) => (
+              <div key={label} className="grid gap-4 border-b border-[var(--line)] py-5 last:border-b-0 md:grid-cols-[88px_0.35fr_1fr] md:items-baseline">
+                <span className="mono-label text-[var(--text-faint)]">0{index + 1}</span>
+                <h3 className="text-xl font-semibold">{label}</h3>
+                <p className="text-sm leading-6 text-[var(--text-dim)]">{body}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -514,28 +550,13 @@ function Detail({ label, body }: { label: string; body: string }) {
   );
 }
 
-function Comparison({ label, items }: { label: string; items: string[] }) {
-  return (
-    <div className="border border-[var(--line)] bg-[var(--bg1)] p-5" style={{ borderRadius: "12px" }}>
-      <p className="mono-label text-[var(--text-faint)]">{label}</p>
-      <div className="mt-4 grid gap-2">
-        {items.map((item) => (
-          <span key={item} className="border-b border-[var(--line)] pb-2 text-sm text-[var(--text-dim)] last:border-b-0 last:pb-0">
-            {item}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function Footer({ copy }: { copy: LandingCopy }) {
   return (
     <footer className="border-t border-[var(--line)] bg-[var(--bg1)] py-8">
       <div className="content-rail flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <ViseCraftMark />
         <nav className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-[var(--text-dim)]" aria-label="Footer">
-          <a href="#product">{copy.footer[0]}</a>
+          <a href="#proof-engine">{copy.footer[0]}</a>
           <a href="https://vp.jtcao.space" target="_blank" rel="noreferrer">
             {copy.footer[1]}
           </a>

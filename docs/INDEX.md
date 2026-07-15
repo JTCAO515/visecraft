@@ -16,8 +16,8 @@ Mandatory reading order:
 
 Current handoff snapshot:
 
-- Active objective: ViseCraft Proof Engine V0 for claim-level, evidence-backed, freshness-aware verification.
-- Implemented: Next.js App Router, dark evidence-first design system, bilingual marketing/auth/workspace copy, preview/Supabase auth adapter, protected `/app`, baseline RLS migration, Proof Engine database migration, deterministic GitHub/URL/deployment adapters, structured rule-based Proof AI provider, VisePanda verification dashboard and claim report.
-- Blockers: production Supabase Auth project, OAuth provider config, GitHub App installation and deployment-platform API credentials are operator actions.
+- Active objective: Reposition ViseCraft homepage around Proof Engine first, formal commercial BP creation second, and one-click website publishing third.
+- Implemented: Next.js App Router, dark evidence-first design system, bilingual marketing/auth/workspace copy, preview/Supabase auth adapter, protected `/app`, baseline RLS migration, Proof Engine database migration, deterministic GitHub/URL/deployment adapters, structured rule-based Proof AI provider, VisePanda verification dashboard and claim report, homepage Proof Engine section, commercial BP Builder capability section and operator-assisted publishing narrative.
+- Blockers: production Supabase Auth project, OAuth provider config, GitHub App installation, deployment-platform API credentials and automated Spaceship DNS provisioning are operator actions.
 - Verification target: `npm run lint`, `npx tsc --noEmit`, `npm run build`, browser checks for `/`, `/login`, `/signup`, `/app`, `/app/projects/visepanda-demo/verification`.
-- Next actions: persist BP/timeline/project data, connect real GitHub App, add scheduled rechecks, persist verification runs from service-role backend, integrate badges into published BP/timeline.
+- Next actions: persist BP/timeline/project data, connect real GitHub App, add scheduled rechecks, persist verification runs from service-role backend, integrate badges into published BP/timeline, automate Vercel deployment and Spaceship DNS subdomain creation.

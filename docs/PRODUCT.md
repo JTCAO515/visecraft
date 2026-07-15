@@ -1,8 +1,26 @@
 # Product
 
-ViseCraft turns real project progress into an investor-ready story.
+ViseCraft turns real project progress into proof-backed startup reporting that can be published as a living website.
 
 It is independent from VisePanda. VisePanda is an AI travel software project and `vp.jtcao.space` is the first live case study that inspired ViseCraft.
+
+## Current Product Thesis
+
+The primary product is ViseCraft Proof Engine.
+
+The core capability order is:
+
+1. Proof Engine: claim-level evidence, freshness and limitation checks.
+2. Commercial BP Builder: formal investor-ready BP structure, narrative and audience views.
+3. Publishing: deploy the BP/report as a shareable website.
+
+The presentation layer is the output: a dynamic BP, project timeline, investor update or public project report. The intended publishing workflow is that a user chooses a project name, ViseCraft generates the verified living BP/report, and the output becomes a website such as:
+
+```text
+project-name.jtcao.space
+```
+
+Current deployment is operator-assisted: the site is deployed through Vercel and the subdomain is added manually in Spaceship DNS for `jtcao.space`. This is a real current workflow, not yet fully automated SaaS provisioning.
 
 ## Personas
 
@@ -14,9 +32,12 @@ It is independent from VisePanda. VisePanda is an AI travel software project and
 
 ## Jobs To Be Done
 
+- Check whether important BP and timeline claims are supported by current, relevant evidence.
+- Create a formal commercial BP with executive summary, problem, solution, product, market, business model, traction, roadmap, team, risks and ask.
 - Explain what changed in the product without rewriting a deck.
 - Translate technical activity into business progress.
 - Attach evidence to important milestones.
+- Publish the resulting BP/report as a shareable website.
 - Share different views with founders, investors and the public.
 
 ## MVP Scope
@@ -26,6 +47,10 @@ It is independent from VisePanda. VisePanda is an AI travel software project and
 - VisePanda live case study link.
 - Evidence-first design system.
 - Supabase-ready auth architecture with local preview auth.
+- Proof Engine V0 with claim-level verdicts, freshness and source checks.
+- Commercial BP Builder positioning and module structure.
+- VisePanda verification dashboard.
+- Operator-assisted publishing concept for `*.jtcao.space`.
 
 ## Non-Goals
 
@@ -33,3 +58,4 @@ It is independent from VisePanda. VisePanda is an AI travel software project and
 - No Canva-style deck editor in V1.
 - No automatic repository access through account login.
 - No SOC 2 or enterprise security claims until actually achieved.
+- No claim that subdomain provisioning is fully automated before Vercel + Spaceship DNS automation exists.
