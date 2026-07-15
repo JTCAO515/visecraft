@@ -32,13 +32,13 @@ export default function Image() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ color: "#34d399", fontSize: 18, letterSpacing: 4, textTransform: "uppercase" }}>
-            Living pitch pages
+            ViseCraft Proof Engine
           </div>
           <div style={{ marginTop: 24, maxWidth: 880, fontSize: 76, lineHeight: 1, fontWeight: 700 }}>
-            Turn project progress into an investor-ready story.
+            Turn every project in motion into a verifiable, living story.
           </div>
           <div style={{ marginTop: 28, maxWidth: 820, color: "#9aa7b5", fontSize: 28, lineHeight: 1.35 }}>
-            Verified timelines, evidence-backed milestones and founder-ready updates.
+            Interactive living BPs, verified timelines and investor-ready updates from real progress.
           </div>
         </div>
         <div style={{ display: "flex", gap: 18, color: "#9aa7b5", fontSize: 22 }}>

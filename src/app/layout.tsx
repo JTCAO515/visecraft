@@ -17,18 +17,18 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://visecraft.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ViseCraft - Turn Project Progress Into an Investor-Ready Story",
+    default: "ViseCraft - Verifiable, Living Project Stories",
     template: "%s | ViseCraft",
   },
   description:
-    "ViseCraft turns real project activity into interactive living pitch pages, verified timelines and investor-ready updates.",
+    "ViseCraft transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "ViseCraft - Turn Project Progress Into an Investor-Ready Story",
+    title: "ViseCraft - Verifiable, Living Project Stories",
     description:
-      "Create living pitch pages, verified timelines and investor-ready updates from real project progress.",
+      "Turn real project progress into interactive living BPs and project stories, verified at claim level by ViseCraft Proof Engine.",
     url: "/",
     siteName: "ViseCraft",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ViseCraft - Turn Project Progress Into an Investor-Ready Story",
+    title: "ViseCraft - Verifiable, Living Project Stories",
     description:
-      "Interactive living pitch pages backed by real project evidence.",
+      "Interactive living BPs and project stories, verified at claim level by ViseCraft Proof Engine.",
     images: ["/opengraph-image"],
   },
   icons: {

@@ -16,8 +16,8 @@ Mandatory reading order:
 
 Current handoff snapshot:
 
-- Active objective: Reposition ViseCraft homepage around Proof Engine first, formal commercial BP creation second, and one-click website publishing third.
-- Implemented: Next.js App Router, dark evidence-first design system, bilingual marketing/auth/workspace copy, preview/Supabase auth adapter, protected `/app`, baseline RLS migration, Proof Engine database migration, deterministic GitHub/URL/deployment adapters, structured rule-based Proof AI provider, VisePanda verification dashboard and claim report, homepage Proof Engine section, commercial BP Builder capability section and operator-assisted publishing narrative.
+- Active objective: Present ViseCraft as a living project-story SaaS platform, with Proof Engine as its core verification layer and BP creation/publishing as product capabilities.
+- Implemented: Next.js App Router, dark evidence-first design system, bilingual marketing/auth/workspace copy, preview/Supabase auth adapter, protected `/app`, baseline RLS migration, Proof Engine database migration, deterministic GitHub/URL/deployment adapters, structured rule-based Proof AI provider, VisePanda verification dashboard and claim report, platform-level homepage narrative, Proof Engine section, commercial BP Builder capability section and website publishing workflow.
 - Blockers: production Supabase Auth project, OAuth provider config, GitHub App installation, deployment-platform API credentials and automated Spaceship DNS provisioning are operator actions.
 - Verification target: `npm run lint`, `npx tsc --noEmit`, `npm run build`, browser checks for `/`, `/login`, `/signup`, `/app`, `/app/projects/visepanda-demo/verification`.
 - Next actions: persist BP/timeline/project data, connect real GitHub App, add scheduled rechecks, persist verification runs from service-role backend, integrate badges into published BP/timeline, automate Vercel deployment and Spaceship DNS subdomain creation.

@@ -108,14 +108,18 @@ export function LandingPage() {
         ) : null}
       </header>
 
-      <section className="content-rail grid gap-12 pb-20 pt-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:pb-24 lg:pt-20">
-        <div className="fade-up">
-          <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] text-[var(--text)] md:text-6xl lg:text-7xl">
+      <section className="hero-stage content-rail grid gap-12 pb-20 pt-14 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:pb-24 lg:pt-20">
+        <div className="fade-up lg:sticky lg:top-28">
+          <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-[var(--text)] md:text-6xl lg:text-[4.25rem]">
             {copy.hero.title}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--text-dim)]">
             {copy.hero.subtitle}
           </p>
+          <div className="mt-7 flex items-center gap-3 border-l border-[var(--jade)] py-1 pl-4 text-sm text-[var(--text)]">
+            <ShieldCheck size={17} className="shrink-0 text-[var(--jade)]" />
+            <span>{copy.hero.proof}</span>
+          </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--jade)] px-5 text-sm font-semibold text-[#04100b] transition hover:brightness-110"
@@ -251,9 +255,6 @@ export function LandingPage() {
             <p className="mono-label text-[var(--jade)]">{copy.publish.label}</p>
             <h3 className="mt-4 text-3xl font-semibold leading-tight">{copy.publish.title}</h3>
             <p className="mt-5 leading-7 text-[var(--text-dim)]">{copy.publish.body}</p>
-            <p className="mt-5 border-t border-[var(--line)] pt-5 text-sm leading-6 text-[var(--amber)]">
-              {copy.publish.current}
-            </p>
           </div>
           <div className="grid border-y border-[var(--line)]">
             {copy.publish.steps.map(([label, body], index) => (
@@ -327,27 +328,6 @@ export function LandingPage() {
               <h3 className="font-semibold">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">{body}</p>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="pricing" label={copy.sections.pricing[0]} title={copy.sections.pricing[1]}>
-        <div className="grid gap-px overflow-hidden border border-[var(--line)] bg-[var(--line)] md:grid-cols-3" style={{ borderRadius: "12px" }}>
-          {copy.pricingPlans.map((plan) => (
-            <article key={plan.name} className="bg-[var(--bg1)] p-6">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-xl font-semibold">{plan.name}</h3>
-                <span className="mono-label text-[var(--amber)]">{plan.status}</span>
-              </div>
-              <p className="mt-4 text-sm leading-6 text-[var(--text-dim)]">{plan.body}</p>
-              <Link
-                className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--blue)]"
-                href="/signup"
-                onClick={() => trackEvent("signup_start", { plan: plan.name })}
-              >
-                {copy.actions.joinEarlyAccess} <ArrowRight size={15} />
-              </Link>
-            </article>
           ))}
         </div>
       </Section>

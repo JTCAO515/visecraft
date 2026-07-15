@@ -1,18 +1,19 @@
 # Product
 
-ViseCraft turns real project progress into proof-backed startup reporting that can be published as a living website.
+ViseCraft automatically transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.
 
 It is independent from VisePanda. VisePanda is an AI travel software project and `vp.jtcao.space` is the first live case study that inspired ViseCraft.
 
-## Current Product Thesis
+## Product Thesis
 
-The primary product is ViseCraft Proof Engine.
+ViseCraft is a living project-intelligence and narrative platform. ViseCraft Proof Engine is the core verification layer that makes important claims evidence-backed, freshness-aware and explainable.
 
-The core capability order is:
+The capability architecture is:
 
-1. Proof Engine: claim-level evidence, freshness and limitation checks.
-2. Commercial BP Builder: formal investor-ready BP structure, narrative and audience views.
-3. Publishing: deploy the BP/report as a shareable website.
+1. Proof Engine: claim-level evidence, freshness, contradiction and limitation checks.
+2. Narrative Engine: convert real product, engineering and business activity into reviewable project meaning.
+3. Presentation Layer: generate living BP, project story, timeline and investor-update views.
+4. Publishing: deploy an authorized view as a shareable project website.
 
 The presentation layer is the output: a dynamic BP, project timeline, investor update or public project report. The intended publishing workflow is that a user chooses a project name, ViseCraft generates the verified living BP/report, and the output becomes a website such as:
 
