@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { VerificationReportView } from "@/components/verification/verification-report";
-import { requireAuthenticatedUser } from "@/lib/auth/user";
 import { findVisePandaClaimReport, getVisePandaVerificationReport } from "@/lib/proof/demo/visepanda-proof-demo";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +9,6 @@ export default async function ClaimVerificationReportPage({
 }: {
   params: Promise<{ projectId: string; claimId: string }>;
 }) {
-  await requireAuthenticatedUser();
   const { projectId, claimId } = await params;
 
   if (projectId !== "visepanda-demo") {

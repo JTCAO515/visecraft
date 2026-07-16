@@ -1,9 +1,6 @@
 import Link from "next/link";
-import { requireAuthenticatedUser } from "@/lib/auth/user";
 
-export default async function NewProjectPage() {
-  await requireAuthenticatedUser();
-
+export default function NewProjectPage() {
   return (
     <main className="min-h-screen bg-[var(--bg0)] text-[var(--text)]">
       <section className="content-rail py-12">
