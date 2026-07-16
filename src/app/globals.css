@@ -119,6 +119,23 @@ input {
   animation: fade-up 640ms ease both;
 }
 
+.ui-skeleton {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-hi);
+  animation: skeleton-breathe 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { encodePreviewSession, previewSessionCookie } from "@/lib/auth/preview-session";
 import { isPreviewAuthEnabled } from "@/lib/supabase/config";
+import { mapZodErrors } from "@/lib/forms/errors";
 
 const loginSchema = z.object({
   email: z.email(),
@@ -10,13 +11,25 @@ const loginSchema = z.object({
 
 export async function POST(request: NextRequest) {
   if (!isPreviewAuthEnabled()) {
-    return NextResponse.json({ error: "Preview auth is disabled." }, { status: 403 });
+    return NextResponse.json(
+      { error: { code: "preview_auth_disabled", message: "Preview auth is disabled." } },
+      { status: 403 },
+    );
   }
 
   const parsed = loginSchema.safeParse(await request.json().catch(() => null));
 
   if (!parsed.success) {
-    return NextResponse.json({ error: "Enter a valid email and a password with at least 8 characters." }, { status: 400 });
+    return NextResponse.json(
+      {
+        error: {
+          code: "invalid_credentials_format",
+          message: "Enter a valid email and a password with at least 8 characters.",
+          fieldErrors: mapZodErrors(parsed.error),
+        },
+      },
+      { status: 400 },
+    );
   }
 
   const response = NextResponse.json({ ok: true });

@@ -4,6 +4,7 @@ import { ExternalLink, LockKeyhole, LogOut, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { ViseCraftMark } from "@/components/shared/logo";
 import { CreateProjectLink } from "@/components/dashboard/create-project-link";
+import { EmptyState } from "@/components/ui/empty-state";
 import { workspaceContent } from "@/content/workspace";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { LanguageSwitch } from "@/components/shared/language-switch";
@@ -72,12 +73,13 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
 
       <section className="content-rail pb-16">
         <div className="grid gap-8 lg:grid-cols-[0.38fr_0.62fr]">
-          <div className="border-t border-[var(--line-hi)] pt-5">
+          <div>
             <p className="mono-label text-[var(--jade)]">{copy.emptyLabel}</p>
-            <h2 className="mt-4 text-2xl font-semibold">{copy.emptyTitle}</h2>
-            <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">
-              {copy.emptyBody}
-            </p>
+            <EmptyState
+              action={<CreateProjectLink surface="workspace_empty_state_detail" />}
+              description={copy.emptyBody}
+              title={copy.emptyTitle}
+            />
           </div>
 
           <div className="border border-[var(--line)] bg-[var(--bg1)]" style={{ borderRadius: "12px" }}>
