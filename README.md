@@ -50,12 +50,13 @@ GitHub Actions runs on every pull request and every push to `main`. The quality 
 ```bash
 npm run lint
 npx tsc --noEmit
+npm test
 npm run build
 npx playwright install chromium
 npm run test:e2e
 ```
 
-The three Chromium smoke tests cover the public authentication entry points, the `/app` authentication boundary and the VisePanda verification dashboard/report flow. They use preview auth without Supabase or GitHub secrets, and dashboard assertions do not depend on a specific external-source verdict. The unit-test step remains reserved until Issue #2 lands.
+The workflow contains no production credentials or repository secrets. `npm test` uses Vitest in a Node environment and must not call live GitHub, deployment or URL adapters. The three Chromium smoke tests cover the public authentication entry points, the `/app` authentication boundary and the VisePanda verification dashboard/report flow. They use preview auth without Supabase or GitHub secrets, and dashboard assertions do not depend on a specific external-source verdict.
 
 ## Environment Variables
 
