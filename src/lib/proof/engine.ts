@@ -113,13 +113,15 @@ export async function runVerification({
   claims,
   evidence,
   triggerType = "manual",
+  now = () => new Date(),
 }: {
   projectId: string;
   claims: ProofClaim[];
   evidence: EvidenceItem[];
   triggerType?: VerificationRun["triggerType"];
+  now?: () => Date;
 }): Promise<VerificationReport> {
-  const startedAt = new Date().toISOString();
+  const startedAt = now().toISOString();
   const runId = id("vrun", `${projectId}-${startedAt}`);
   const results: VerificationResult[] = [];
 
@@ -137,8 +139,8 @@ export async function runVerification({
       evidence: claimEvidence,
       deterministicChecks,
     });
-    const checkedAt = new Date().toISOString();
-    const freshness = calculateFreshness({ claimType: claim.claimType, checkedAt });
+    const checkedAt = now().toISOString();
+    const freshness = calculateFreshness({ claimType: claim.claimType, checkedAt, now: now() });
     const verdict = freshness.status === "stale" && aiOutput.verdict !== "contradicted" ? "stale" : aiOutput.verdict;
 
     results.push({
@@ -167,7 +169,7 @@ export async function runVerification({
     triggerType,
     proofEngineVersion,
     startedAt,
-    completedAt: new Date().toISOString(),
+    completedAt: now().toISOString(),
     status: "completed",
     sourceSnapshotAt: startedAt,
     claimsChecked: claims.length,
