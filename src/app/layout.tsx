@@ -12,23 +12,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://visecraft.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vc.jtcao.space";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ViseCraft - Verifiable, Living Project Stories",
+    default: "ViseCraft - Evidence for Projects in Motion",
     template: "%s | ViseCraft",
   },
   description:
-    "ViseCraft transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.",
+    "ViseCraft connects project activity, founder review and claim-level verification in one continuously updated evidence record.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "ViseCraft - Verifiable, Living Project Stories",
+    title: "ViseCraft - Evidence for Projects in Motion",
     description:
-      "Turn real project progress into interactive living BPs and project stories, verified at claim level by ViseCraft Proof Engine.",
+      "Connect project activity, founder review and claim-level verification in one evidence record.",
     url: "/",
     siteName: "ViseCraft",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ViseCraft - Verifiable, Living Project Stories",
+    title: "ViseCraft - Evidence for Projects in Motion",
     description:
-      "Interactive living BPs and project stories, verified at claim level by ViseCraft Proof Engine.",
+      "Project activity, founder review and claim-level verification in one evidence record.",
     images: ["/opengraph-image"],
   },
   icons: {

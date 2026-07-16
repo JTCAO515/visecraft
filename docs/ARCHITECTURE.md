@@ -10,7 +10,17 @@
 
 ## Data Flow
 
-Landing page content lives in `src/content/landing.ts`. UI components consume structured content and do not hard-code product claims into the design system.
+Landing page content currently lives in `src/content/landing.ts`. UI components consume structured content and do not hard-code product claims into the design system. The next source revision must replace legacy BP-builder promises with the corrected ViseCraft boundary recorded in `docs/PRODUCT.md`.
+
+The target ViseCraft value flow is:
+
+```text
+authorized source -> collected activity -> human review -> project record/timeline
+  -> atomic claim -> evidence packet -> deterministic checks/freshness
+  -> scoped verdict -> authorized report, badge or export
+```
+
+Generated summaries remain drafts until a user accepts them. Proof Engine consumes read-only claim and evidence inputs and does not modify source content.
 
 ## Route Boundaries
 
@@ -18,7 +28,7 @@ The App Router keeps one root document layout and uses route groups to separate 
 
 - `src/app/(marketing)`: `/`, `/login`, `/signup`, `/privacy` and `/terms`; explicitly static, with the landing navigation and footer owned by the marketing layout shell.
 - `src/app/(app)`: `/app/**` and `/auth/callback`; dynamic application and authentication flows. The shared app layout requires an authenticated user before protected page content renders.
-- `src/app/(public)`: reserved ISR presentation boundary for `/p/[slug]`. Issue #14 will add the first published project route; no placeholder project data is exposed meanwhile.
+- `src/app/(public)`: reserved public evidence-delivery boundary. Future routes may expose authorized claim reports or badge explanations; no generic project BP route or placeholder private project data is exposed.
 - `src/app/api`: server endpoints remain outside presentation groups.
 
 Route groups do not contribute URL segments. `src/proxy.ts` continues to protect only `/app/:path*`; moving files between groups must not broaden that matcher.
@@ -38,6 +48,8 @@ Auth flow:
 - Protected routes use Supabase `getClaims()` in proxy when Supabase is configured.
 - Preview auth is for local MVP verification and must not be treated as production security.
 
-## Publishing Model
+## Evidence Delivery Model
 
-The public launch page is static and shareable. Published project pages will use the `(public)` route group's ISR boundary after persistent project data and GitHub activity import are implemented.
+The public launch page is static and shareable. Future ViseCraft public surfaces are limited to authorized verification reports, badge explanations and bounded evidence exports. Visibility filtering must occur server-side, and private/team evidence must never be serialized into a public response.
+
+Interactive BP rendering and publishing belong to VisePitch. A future cross-product integration uses an explicit, revocable evidence-packet contract; it does not query ViseCraft tables directly and does not share application business logic.

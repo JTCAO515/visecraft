@@ -35,16 +35,16 @@ export default function Image() {
             ViseCraft Proof Engine
           </div>
           <div style={{ marginTop: 24, maxWidth: 880, fontSize: 76, lineHeight: 1, fontWeight: 700 }}>
-            Turn every project in motion into a verifiable, living story.
+            Give every project in motion an evidence record people can inspect.
           </div>
           <div style={{ marginTop: 28, maxWidth: 820, color: "#9aa7b5", fontSize: 28, lineHeight: 1.35 }}>
-            Interactive living BPs, verified timelines and investor-ready updates from real progress.
+            Project activity, founder review and claim-level verification in one continuously updated record.
           </div>
         </div>
         <div style={{ display: "flex", gap: 18, color: "#9aa7b5", fontSize: 22 }}>
           <span>GitHub-connected</span>
           <span>Evidence-first</span>
-          <span>Founder, Investor and Public views</span>
+          <span>Scoped reports and evidence packets</span>
         </div>
       </div>
     ),

@@ -6,7 +6,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Vis
 
 ## [Unreleased]
 
-No unreleased product changes are currently recorded.
+## [1.0.12] - 2026-07-17
+
+### Changed
+
+- Corrected the product boundary: ViseCraft owns source connection, activity review, project records, claim evidence, freshness, Proof Engine verdicts and evidence delivery.
+- Assigned idea/document/deck intake, chatbot-assisted authoring, investor BP structure, interactive website BPs and BP publishing to the independent VisePitch product.
+- Recorded that the planned 12-chapter ViseCraft site is ViseCraft's own evidence-framed company narrative, not a generic BP-builder capability.
+
+### Docs
+
+- Synchronized the product, architecture, roadmap, design, deployment-action and handoff documents with the corrected boundary and v1.0.12 release.
 
 ## [1.0.11] - 2026-07-17
 

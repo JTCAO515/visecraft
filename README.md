@@ -1,29 +1,31 @@
 # ViseCraft
 
-Current product version: `v1.0.11`
+Current product version: `v1.0.12`
 
-Turn every project in motion into a verifiable, living business story.
+Turn project activity into an inspectable, evidence-aware record.
 
-ViseCraft is an independent SaaS platform that automatically transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.
+ViseCraft is an independent SaaS product for connecting project sources, reviewing meaningful activity, maintaining a project record and evaluating specific claims against evidence and freshness rules.
 
-ViseCraft Proof Engine is its verification layer: claim-level, evidence-backed and freshness-aware checks for living BP, timeline and investor-update claims. Formal BP creation, audience views and website publishing are product capabilities built on that platform.
+ViseCraft Proof Engine is its verification layer: claim-level, evidence-backed and freshness-aware checks that produce scoped verdicts, reports, badges and exportable evidence summaries.
+
+VisePitch is a separate product. It owns idea, document and deck intake, chatbot-assisted authoring, investor BP structure, interactive website BPs and BP publishing. VisePitch may later consume a bounded ViseCraft evidence packet through an explicit export contract, but the products do not share a database, application business logic or product promises.
 
 It is not a VisePanda feature. VisePanda is an independent AI travel software project, and `vp.jtcao.space` is the first live case study that inspired this product.
 
 ## Current Status
 
-The `v1.0.11` foundation includes:
+The `v1.0.12` foundation includes:
 
-- Public launch page with product positioning, capabilities, workflow, VisePanda demo, use cases, privacy, pricing preview and CTA paths.
+- Public launch page with product positioning, capabilities, workflow, VisePanda demo, use cases, privacy, pricing preview and CTA paths. Its evidence-framed 12-chapter company record explains ViseCraft itself without marketing a generic BP builder.
 - Login and signup entry.
 - Supabase Auth architecture with GitHub OAuth support.
 - Local preview auth fallback for MVP verification without committing secrets.
 - Protected `/app` workspace with empty state, user identity, logout and project creation entry.
 - ViseCraft Proof Engine V0 foundation: claim model, evidence model, freshness model, deterministic GitHub/URL/deployment adapters, protected verification dashboard and claim report.
-- Homepage positioning centered on the living project-story platform, with Proof Engine as the core verification layer.
+- Homepage product interface centered on Proof Engine, evidence boundaries and inspectable release history.
 - SEO metadata, Open Graph image, sitemap and robots.
 - Supabase auth foundation migration with RLS.
-- Bilingual, evidence-linked product release reports for v1.0.5 through v1.0.11 on the public homepage.
+- Bilingual, evidence-linked product release reports for v1.0.5 through v1.0.12 on the public homepage.
 
 ## Tech Stack
 
@@ -56,7 +58,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The three Chromium smoke tests cover the public authentication entry points, the `/app` authentication boundary and the VisePanda verification dashboard/report flow. They use preview auth without Supabase or GitHub secrets, and dashboard assertions do not depend on a specific external-source verdict. The unit-test step remains reserved until Issue #2 lands.
+The four Chromium smoke tests cover the public homepage at desktop/mobile widths, bilingual copy, authentication entry points, the `/app` authentication boundary and the VisePanda verification dashboard/report flow. They use preview auth without Supabase or GitHub secrets, and dashboard assertions do not depend on a specific external-source verdict. The unit-test step remains reserved until Issue #2 lands.
 
 ## Environment Variables
 
@@ -129,7 +131,9 @@ See:
 
 ## Deployment
 
-Deploy on Vercel or another Next.js-compatible host. Set the environment variables above, configure Supabase Auth redirect URLs, and add GitHub OAuth credentials in Supabase if GitHub login is enabled.
+Deploy the ViseCraft application on Vercel or another Next.js-compatible host. Set the environment variables above, configure Supabase Auth redirect URLs, and add GitHub OAuth credentials in Supabase if GitHub login is enabled. Interactive BP deployment belongs to the independent VisePitch product.
+
+Use [`docs/DEPLOY.md`](docs/DEPLOY.md) for the click-by-click Vercel, Spaceship DNS, verification and rollback runbook. Use [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) when updating the bilingual 12-chapter company record.
 
 ## Roadmap
 

@@ -80,7 +80,7 @@ export function LandingPage() {
         onPrimaryClick={() => trackEvent("get_started_click", { surface: "final_cta" })}
         onSecondaryClick={() => trackEvent("view_demo_click", { surface: "final_cta" })}
         primary={{ href: "/signup", label: copy.actions.getStarted }}
-        secondary={{ href: "https://vp.jtcao.space", label: copy.actions.viewDemo, external: true }}
+        secondary={{ href: "https://github.com/JTCAO515/visecraft", label: copy.actions.viewDemo, external: true }}
         title={copy.finalCta.title}
       />
     </main>
@@ -112,7 +112,7 @@ function Hero({
           </ActionLink>
           <ActionLink
             external
-            href="https://vp.jtcao.space"
+            href="https://github.com/JTCAO515/visecraft"
             onClick={() => trackEvent("view_demo_click", { surface: "hero" })}
             variant="secondary"
           >
@@ -655,7 +655,7 @@ function CaseStudySection({ copy }: { copy: LandingCopy }) {
             <h3 className="mt-8 text-5xl font-semibold tracking-[-0.05em] md:text-7xl">{copy.caseStudy.project}</h3>
             <a
               className="mt-9 inline-flex items-center gap-2 text-sm font-medium text-[var(--blue)]"
-              href="https://vp.jtcao.space"
+              href="https://github.com/JTCAO515/visecraft"
               onClick={() => trackEvent("view_demo_click", { surface: "case_study" })}
               rel="noreferrer"
               target="_blank"

@@ -1,6 +1,6 @@
 # ViseCraft Proof Engine
 
-ViseCraft Proof Engine is the independent verification layer for Living BP, timeline, project updates and published views.
+ViseCraft Proof Engine is the independent verification layer for project records, timelines, project updates and authorized evidence delivery.
 
 It does not verify a company, endorse an investment, certify a startup or guarantee performance. It evaluates whether available connected evidence supports a specific project claim.
 
@@ -19,14 +19,14 @@ It does not verify a company, endorse an investment, certify a startup or guaran
 
 ## System Architecture
 
-Narrative Engine and Proof Engine are separated.
+Project Record and Proof Engine are separated.
 
-Narrative Engine:
+Project Record:
 
-- Generates BP sections.
-- Summarizes activity.
-- Writes timeline narratives.
-- Produces investor updates.
+- Stores founder-reviewed activity.
+- Preserves source, time and project context.
+- Produces reviewable timeline entries.
+- Keeps claims separate from verification verdicts.
 
 Proof Engine:
 
@@ -36,7 +36,7 @@ Proof Engine:
 - Builds a read-only evidence packet.
 - Produces structured verdicts.
 - Stores verification run history.
-- Does not modify BP content.
+- Does not modify project-record content.
 - Does not allow project owners to manually edit verdicts.
 
 Current MVP implementation:

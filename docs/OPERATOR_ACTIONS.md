@@ -21,19 +21,10 @@
 - Verification: login succeeds and no repository permissions are requested beyond identity/email scopes.
 - Rollback: disable GitHub provider in Supabase Auth.
 
-## OA-003 Publish BP/Report Website on `jtcao.space`
+## OA-003 Retired: ViseCraft BP/Report Subdomain Publishing
 
-- Purpose: publish a generated ViseCraft BP/report as a real website under a project subdomain such as `project-name.jtcao.space`.
-- Owner: operator.
-- Environment: Vercel project plus Spaceship DNS for `jtcao.space`.
-- Placeholder names: `PROJECT_SLUG`, `PUBLISH_DOMAIN`, `VERCEL_PROJECT_ID`, `SPACESHIP_DNS_RECORD`.
-- Current status: manual/operator-assisted. This must not be marketed as fully automated provisioning until the domain and deployment APIs are implemented.
-- Prerequisite: generated BP/report build output and selected project slug.
-- Manual flow:
-  1. Deploy the project/report site through Vercel.
-  2. Add or update the matching subdomain record in Spaceship DNS for `jtcao.space`.
-  3. Wait for DNS propagation and Vercel domain verification.
-  4. Verify the public URL loads the intended BP/report.
-- Unblock condition: the selected URL, for example `PROJECT_SLUG.jtcao.space`, returns the published BP/report.
-- Verification: open the URL in a private browser window and confirm the report content, visibility mode and evidence summaries match the intended published state.
-- Rollback: remove the Vercel domain binding and delete or revert the Spaceship DNS record.
+- Status: retired by the ViseCraft/VisePitch product-boundary correction.
+- Previous purpose: operator-assisted publication of a generated BP/report under `jtcao.space`.
+- Reason retired: interactive BP generation and publishing belong to the independent VisePitch product, not ViseCraft.
+- Operator action: none in this repository. Do not create ViseCraft deployment credentials, DNS records or product promises for BP publishing.
+- Migration note: any future VisePitch deployment or domain action must be registered in the VisePitch repository. A future ViseCraft public claim-report or badge endpoint requires a new, separately reviewed operator action with visibility and rollback checks.

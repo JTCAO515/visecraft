@@ -20,7 +20,7 @@ export default function NewProjectPage() {
               Create a project profile.
             </h1>
             <p className="mt-4 leading-7 text-[var(--text-dim)]">
-              This v1.0.11 entry captures the shape of the project creation workflow. Persistence and repository connection are the next app modules.
+              This v1.0.12 entry captures the shape of the project creation workflow. Persistence and repository connection are the next app modules.
             </p>
           </div>
           <form className="grid gap-4 border border-[var(--line)] bg-[var(--bg1)] p-6" style={{ borderRadius: "12px" }}>

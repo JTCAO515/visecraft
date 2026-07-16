@@ -1,6 +1,6 @@
 # Design System
 
-ViseCraft v1.0.11 uses the VP Timeline dark evidence-first design system.
+ViseCraft v1.0.12 uses the VP Timeline dark evidence-first design system.
 
 Reference concept:
 
@@ -45,15 +45,19 @@ The frontend interaction model follows the Apple Design Skill principles of imme
 
 ## Marketing Homepage System
 
+The corrected homepage direction uses a 12-chapter, evidence-framed account of ViseCraft itself. That company narrative is a ViseCraft reporting surface, not a generic BP-builder feature. It must never imply that ViseCraft owns investor BP authoring or interactive BP publishing.
+
 The homepage uses a single-focus section rhythm rather than a card-dense landing-page grid:
 
-- The hero pairs one large product statement with a functional Proof Engine interface. The interface is evidence-bounded demo content from `src/content/landing.ts`, not a fabricated metric dashboard.
-- Proof Engine is the first product section. It always describes claim-level support, freshness and limitations; it never implies company certification.
-- Capabilities are grouped by user scenario: fundraising, recurring reporting and living-site publishing. Switching a scenario changes one shared detail panel instead of displaying every capability at once.
-- BP Studio, integrations, workflow, plans, case study and FAQ each occupy a separate visual band. This keeps one primary decision per viewport and uses open rails, rows and aligned columns over repeated cards.
+- The hero pairs one large product statement with a functional Proof Engine interface. The interface is evidence-bounded content from a structured content module, not a fabricated metric dashboard.
+- The chapter sequence may cover purpose, problem, solution, why now, market assumptions, competition, product, business model, team, financial boundaries, traction and ask because it describes ViseCraft's own company narrative.
+- Proof Engine always describes claim-level support, freshness and limitations; it never implies company certification.
+- Evidence badges distinguish direct evidence, self-reported information and plans/assumptions. Color is semantic, not decorative.
+- The product architecture shown to users is source connection, human review, project record/timeline, Proof Engine and evidence delivery through reports, badges or exports.
 - Integration status is explicit. Current MVP focus and planned providers must never share the same status treatment.
-- Free and Pro are compared in the same view. Undecided paid pricing is labelled as pending rather than represented by invented numbers.
+- Free and Pro may be compared only as an early-access ViseCraft verification service preview. Undecided pricing is labelled pending rather than represented by invented numbers.
 - Customer quotes are not shown until an attributable, approved source exists. The live case study provides inspectable product evidence without fabricating social proof.
+- VisePitch may be named as the separate interactive-BP product, but its chatbot, BP structure and publishing UI must not appear as ViseCraft capabilities.
 
 Reusable marketing composition lives in `src/components/marketing/marketing-primitives.tsx`:
 

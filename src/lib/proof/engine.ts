@@ -142,7 +142,9 @@ export async function runVerification({
     const verdict = freshness.status === "stale" && aiOutput.verdict !== "contradicted" ? "stale" : aiOutput.verdict;
 
     results.push({
-      id: id("vresult", `${runId}-${claim.id}`),
+      // Keep the claim identifier before the run identifier so the bounded ID
+      // remains unique after `id` truncates long values.
+      id: id("vresult", `${claim.id}-${runId}`),
       verificationRunId: runId,
       claimId: claim.id,
       verdict,
