@@ -27,7 +27,7 @@ test("visitor can load the landing page and reach authentication", async ({ page
   await expect(page.getByRole("heading", { name: "Welcome back to ViseCraft." })).toBeVisible();
 
   await page.goto("/");
-  await page.getByRole("link", { name: "Get started", exact: true }).first().click();
+  await page.getByRole("link", { name: "Create your project", exact: true }).first().click();
   await expect(page).toHaveURL(/\/signup$/);
   await expect(page.getByRole("heading", { name: "Create your ViseCraft workspace." })).toBeVisible();
 });
