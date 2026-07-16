@@ -30,6 +30,13 @@ describe("extractClaimsFromContent", () => {
     expect(extract("12345678901234567")).toHaveLength(1);
   });
 
+  it("keeps decimal version identifiers intact while splitting adjacent sentences", () => {
+    expect(extract("Release 1.2 was published to customers.Version 1.3 is planned.").map((claim) => claim.originalText)).toEqual([
+      "Release 1.2 was published to customers.",
+      "Version 1.3 is planned.",
+    ]);
+  });
+
   it.each<[string, ClaimType, boolean]>([
     ["The booking engine was deployed yesterday.", "feature_deployed", true],
     ["The public product is live for testing.", "product_accessible", true],

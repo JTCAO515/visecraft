@@ -28,7 +28,7 @@ function requiresFreshness(claimType: ClaimType) {
 
 export function extractClaimsFromContent(source: SourceContent): ProofClaim[] {
   return source.text
-    .split(/(?<=[.!?。！？])\s+/)
+    .split(/(?<=[!?。！？])\s*|(?<=[.])(?=\s)|(?<!\d\.)(?<=[.])(?=\S)/)
     .map((sentence) => sentence.trim())
     .filter((sentence) => sentence.length > 16)
     .map((sentence, index) => {
