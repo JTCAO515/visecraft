@@ -6,7 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Vis
 
 ## [Unreleased]
 
-No unreleased product changes are recorded.
+### Changed
+
+- Rebuilt the homepage around a large product statement and an interactive Proof Engine workspace instead of a sequence of equally weighted feature sections.
+- Grouped product capabilities by fundraising, recurring reporting and living-site publishing scenarios.
+- Added separate BP Studio, integration roadmap, Free/Pro comparison, live case-study and FAQ sections with bilingual content.
+- Standardized reusable marketing actions, section introductions, plan cards, FAQ rows and final CTA composition.
 
 ## [1.0.4] - 2026-07-15
 

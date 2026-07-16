@@ -32,6 +32,33 @@ test("visitor can load the landing page and reach authentication", async ({ page
   await expect(page.getByRole("heading", { name: "Create your ViseCraft workspace." })).toBeVisible();
 });
 
+test("homepage keeps one active scenario, bilingual copy, and a 390px-safe product interface", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { name: "Claims under review" })).toBeVisible();
+  await page.getByRole("tab", { name: /Report without rewriting/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Turn ongoing work into updates without rebuilding the story every week." }),
+  ).toBeVisible();
+
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+  ).toBeTruthy();
+
+  await page.getByRole("button", { name: "Toggle navigation" }).click();
+  await page.getByRole("button", { name: "中文" }).click();
+  await expect(
+    page.getByRole("heading", { name: "让每一个真实推进的项目，都成为可验证、持续生长的商业叙事。" }),
+  ).toBeVisible();
+  expect(consoleErrors).toEqual([]);
+});
+
 test("preview authentication protects the workspace and logout clears access", async ({ page }) => {
   await page.goto("/app");
   await expect(page).toHaveURL(/\/login\?next=%2Fapp$/);

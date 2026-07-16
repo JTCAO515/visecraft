@@ -1,5 +1,6 @@
 export type Locale = "en" | "zh";
 export type ViewModeId = "founder" | "investor" | "public";
+export type SignalTone = "jade" | "blue" | "amber" | "rose" | "neutral";
 
 export const productVersion = "1.0.4";
 
@@ -8,510 +9,678 @@ export const localeLabels: Record<Locale, string> = {
   zh: "中文",
 };
 
-export const landingContent = {
+export interface LandingCopy {
+  navItems: Array<{ label: string; href: string }>;
+  actions: {
+    signIn: string;
+    getStarted: string;
+    viewDemo: string;
+    comparePlans: string;
+    startFree: string;
+    joinPro: string;
+    alreadyHaveAccount: string;
+  };
+  a11y: {
+    primaryNavigation: string;
+    toggleNavigation: string;
+    footerNavigation: string;
+  };
+  hero: {
+    title: string;
+    subtitle: string;
+    proof: string;
+    facts: Array<[string, string]>;
+  };
+  interfaceLabels: {
+    workspace: string;
+    project: string;
+    projectName: string;
+    proofEngine: string;
+    timeline: string;
+    bpStudio: string;
+    publish: string;
+    claims: string;
+    selectedClaim: string;
+    verdict: string;
+    evidence: string;
+    freshness: string;
+    supportingEvidence: string;
+    limitations: string;
+    checkedBy: string;
+    openReport: string;
+    currentVersion: string;
+    proofEngineVersion: string;
+    sourceLinked: string;
+    founderReviewed: string;
+  };
+  heroClaims: Array<{
+    title: string;
+    source: string;
+    verdict: string;
+    freshness: string;
+    evidenceCount: string;
+    summary: string;
+    limitations: string;
+    tone: SignalTone;
+  }>;
+  proofEngine: {
+    title: string;
+    body: string;
+    steps: Array<{ number: string; title: string; body: string }>;
+    report: {
+      claimLabel: string;
+      claim: string;
+      verdict: string;
+      confidence: string;
+      evidence: Array<[string, string]>;
+      limitationLabel: string;
+      limitation: string;
+      freshnessLabel: string;
+      freshness: string;
+      checkedBy: string;
+      disclaimer: string;
+    };
+  };
+  scenarios: {
+    title: string;
+    body: string;
+    items: Array<{
+      id: string;
+      label: string;
+      title: string;
+      body: string;
+      capabilities: Array<{ title: string; body: string; signal: string }>;
+    }>;
+  };
+  bpStudio: {
+    title: string;
+    body: string;
+    modules: Array<{ key: string; title: string; body: string; output: string }>;
+    views: Array<{ id: ViewModeId; title: string; body: string }>;
+    labels: {
+      document: string;
+      module: string;
+      narrative: string;
+      evidence: string;
+      audienceViews: string;
+    };
+  };
+  integrations: {
+    title: string;
+    body: string;
+    focusLabel: string;
+    roadmapLabel: string;
+    current: Array<{ name: string; status: string; body: string }>;
+    planned: Array<{ name: string; status: string }>;
+    flow: Array<string>;
+  };
+  workflow: {
+    title: string;
+    steps: Array<{ number: string; title: string; body: string }>;
+  };
+  plans: {
+    title: string;
+    body: string;
+    pending: string;
+    included: string;
+    items: Array<{
+      name: string;
+      badge: string;
+      price: string;
+      description: string;
+      features: string[];
+      cta: string;
+      href: string;
+      featured: boolean;
+    }>;
+  };
+  caseStudy: {
+    title: string;
+    body: string;
+    project: string;
+    status: string;
+    rows: Array<[string, string]>;
+    cta: string;
+  };
+  faq: {
+    title: string;
+    items: Array<{ question: string; answer: string }>;
+  };
+  finalCta: {
+    title: string;
+    body: string;
+  };
+  footer: string[];
+  footerCopyright: string;
+}
+
+export const landingContent: Record<Locale, LandingCopy> = {
   en: {
     navItems: [
-      { label: "Proof Engine", href: "#proof-engine" },
-      { label: "BP Builder", href: "#bp-builder" },
-      { label: "Publish", href: "#publish" },
-      { label: "How it works", href: "#how-it-works" },
+      { label: "Product", href: "#proof-engine" },
       { label: "Use cases", href: "#use-cases" },
-      { label: "Demo", href: "#demo" },
+      { label: "BP Studio", href: "#bp-studio" },
+      { label: "Integrations", href: "#integrations" },
+      { label: "Plans", href: "#plans" },
     ],
     actions: {
       signIn: "Sign in",
-      getStarted: "Get started",
+      getStarted: "Create your project",
       viewDemo: "View live demo",
-      createProject: "Create your project",
+      comparePlans: "Compare plans",
+      startFree: "Start free",
+      joinPro: "Join Pro early access",
       alreadyHaveAccount: "Already have an account?",
-      joinEarlyAccess: "Join early access",
+    },
+    a11y: {
+      primaryNavigation: "Primary navigation",
+      toggleNavigation: "Toggle navigation",
+      footerNavigation: "Footer navigation",
     },
     hero: {
       title: "Turn every project in motion into a verifiable, living business story.",
       subtitle:
-        "ViseCraft automatically transforms real project progress into interactive, verifiable and continuously updated living BPs, project stories and investor updates.",
-      proof: "Verified at claim level by ViseCraft Proof Engine.",
-    },
-    trust: "Proof Engine · Verified narrative · Living BP · Investor-ready updates",
-    proofEngine: {
-      label: "Core product",
-      title: "ViseCraft Proof Engine is the verification layer behind every living BP.",
-      body:
-        "Claim-level checks for evidence, freshness, limitations and contradictions.",
-      rows: [
-        ["Claim-level", "Each major BP, timeline and update statement becomes a specific claim with its own result."],
-        ["Evidence-backed", "GitHub, releases, issues, deployment records, URLs and founder notes keep source context attached."],
-        ["Freshness-aware", "Current claims expire. A live URL, active project or current version must be rechecked."],
-        ["Non-misleading", "The system explains limitations instead of certifying the whole company or implying investment quality."],
-      ],
-      profile: [
-        ["Product evidence", "Code-backed"],
-        ["Deployment evidence", "Source-linked"],
-        ["Usage evidence", "Not provided"],
-        ["Freshness", "Current"],
-        ["Contradictions", "None detected"],
+        "ViseCraft turns real product and engineering progress into interactive living BPs, investor updates and project websites — with claim-level evidence checks built in.",
+      proof: "Evidence-backed by ViseCraft Proof Engine",
+      facts: [
+        ["Verification", "Claim-level"],
+        ["Narrative", "Continuously updated"],
+        ["Publishing", "Living project site"],
       ],
     },
-    publish: {
-      label: "Website publishing",
-      title: "Publish a living BP as a shareable project website.",
-      body:
-        "Choose a project name. Generate the BP/report. Publish it as a website such as project-name.jtcao.space.",
-      steps: [
-        ["Name", "Choose a project slug, for example atlas-ai."],
-        ["Generate", "Build the living BP, timeline, evidence summaries and audience views."],
-        ["Deploy", "Publish as atlas-ai.jtcao.space or another configured domain."],
-        ["Share", "Send the link to investors, partners, advisors or the public."],
-      ],
+    interfaceLabels: {
+      workspace: "Founder workspace",
+      project: "ViseCraft",
+      projectName: "ViseCraft",
+      proofEngine: "Proof Engine",
+      timeline: "Timeline",
+      bpStudio: "BP Studio",
+      publish: "Publish",
+      claims: "Claims under review",
+      selectedClaim: "Verification report",
+      verdict: "Verdict",
+      evidence: "Evidence",
+      freshness: "Freshness",
+      supportingEvidence: "Supporting evidence",
+      limitations: "Limitations",
+      checkedBy: "Checked by",
+      openReport: "Open full report",
+      currentVersion: "Current version",
+      proofEngineVersion: "Proof Engine v0.x",
+      sourceLinked: "Source-linked",
+      founderReviewed: "Founder reviewed",
     },
-    bpBuilder: {
-      label: "Commercial BP capability",
-      title: "Build a formal investor-ready BP, not just a project log.",
-      body:
-        "A polished commercial BP structure with evidence-aware claims.",
-      modules: [
-        ["Executive summary", "A crisp company narrative, stage, product thesis, current status and ask."],
-        ["Problem and solution", "Market pain, product answer, target user and why now."],
-        ["Product and architecture", "Product workflow, technical moat, integrations, roadmap and release history."],
-        ["Market and business model", "Market framing, monetization logic, pricing hypothesis and go-to-market path."],
-        ["Traction and milestones", "Progress, demos, launches, evidence-backed timeline and current gaps."],
-        ["Team, risks and ask", "Founder context, execution risks, next milestones, funding needs and use of funds."],
-      ],
-      outputs: [
-        "Investor View",
-        "Founder View",
-        "Public View",
-        "Weekly Update",
-        "Living BP Website",
-      ],
-    },
-    sourceStrip: [
-      { label: "GitHub", status: "supported" },
-      { label: "Releases", status: "supported" },
-      { label: "Issues", status: "supported" },
-      { label: "Pull requests", status: "supported" },
-      { label: "Founder notes", status: "supported" },
-    ],
-    problems: [
-      "Static pitch decks become outdated the moment product work continues.",
-      "Investors cannot easily verify what actually changed in the product.",
-      "GitHub activity is too technical for business readers to understand.",
-      "Founders repeatedly rewrite weekly updates from scattered sources.",
-      "Decisions, risks and failed experiments disappear across tools.",
-    ],
-    livingStoryRows: [
-      ["Activity", "Collect repository and founder activity without forcing it into slide format."],
-      ["Narrative", "Translate technical work into business meaning with human review."],
-      ["Evidence", "Keep source links and evidence levels attached to every milestone."],
-      ["Views", "Switch between founder, investor and public language from the same project base."],
-    ],
-    capabilities: [
+    heroClaims: [
       {
-        title: "Proof Engine",
-        body: "Check each important claim against source evidence, freshness rules and limitations before it appears as trusted progress.",
-        points: ["Claim extraction", "Evidence matching", "Freshness", "Contradictions"],
-      },
-      {
-        title: "Published BP Websites",
-        body: "Turn a dynamic BP or investor report into a deployable website with a memorable project subdomain.",
-        points: ["Living BP", "Investor report", "Public page", "Share link"],
-      },
-      {
-        title: "Technical-to-Business Translation",
-        body: "Convert raw engineering activity into investor-readable progress without overstating the facts.",
-        points: ["Impact summary", "Technical context", "Risk notes", "Founder edits"],
-      },
-      {
-        title: "Investor Updates",
-        body: "Generate weekly and monthly updates with highlights, challenges, risks, next steps and asks.",
-        points: ["Weekly update", "Monthly update", "Risks", "Next steps"],
-      },
-    ],
-    howItWorks: [
-      {
-        step: "01",
-        title: "Create a project",
-        body: "Add the company, product, market, stage, founder context and visibility defaults.",
-      },
-      {
-        step: "02",
-        title: "Connect your sources",
-        body: "Start with GitHub activity and founder notes; more project tools can be added over time.",
-      },
-      {
-        step: "03",
-        title: "Review meaningful progress",
-        body: "Accept, edit, merge or hide generated events before anything becomes part of the story.",
-      },
-      { step: "04", title: "Verify the claims", body: "Proof Engine checks evidence, freshness and limitations at claim level before the report is trusted." },
-      {
-        step: "05",
-        title: "Publish and share",
-        body: "Publish the living BP as a project website and share one continuously updated link.",
-      },
-    ],
-    timelineEvents: [
-      {
-        version: "1.0.3",
-        date: "Jul 15",
-        time: "10:42 UTC",
-        title: "ViseCraft launch page shipped",
-        status: "source-linked",
-        evidence: "Source-linked",
+        title: "The ViseCraft launch surface is implemented.",
+        source: "Repository commit",
+        verdict: "Code-backed",
+        freshness: "Historical",
+        evidenceCount: "3 sources",
+        summary: "Repository records support that the independent product surface was implemented.",
+        limitations: "Code confirms implementation. It does not establish active user adoption.",
         tone: "jade",
-        what: "The first public ViseCraft launch surface and authenticated entry were created as an independent product.",
-        why: "This gives investor conversations, user interviews and early access collection a single official product entry.",
-        technical:
-          "Next.js App Router, tokenized dark design system, Supabase Auth adapter, preview auth fallback and protected workspace route.",
-        business:
-          "ViseCraft can now be shown as its own SaaS product instead of being explained only through the VisePanda case study.",
-        sources: ["Repository commit", "Product specification", "Auth callback route"],
       },
       {
-        version: "1.0.2",
-        date: "Jul 12",
-        time: "14:18 UTC",
-        title: "Evidence model separated from product claims",
-        status: "code-backed",
-        evidence: "Code-backed",
+        title: "The published product version is v1.0.4.",
+        source: "Package metadata",
+        verdict: "Source-linked",
+        freshness: "Current",
+        evidenceCount: "2 sources",
+        summary: "The displayed version matches the repository package metadata and product timeline.",
+        limitations: "Version alignment does not prove that every planned M1 workflow is complete.",
         tone: "blue",
-        what: "Product copy, demo events, evidence levels and view modes were separated into data modules.",
-        why: "The design system can be reused without forcing a specific founder story or inflated business claim.",
-        technical:
-          "Marketing content is stored independently from UI components and can later be replaced by database-backed project data.",
-        business:
-          "This protects trust: ViseCraft presents evidence and founder edits without implying every claim has the same proof level.",
-        sources: ["Content module", "Design tokens", "Evidence labels"],
       },
       {
-        version: "1.0.1",
-        date: "Jul 09",
-        time: "09:31 UTC",
-        title: "VisePanda case study defined",
-        status: "self-reported",
-        evidence: "Self-reported",
+        title: "Repository activity proves commercial traction.",
+        source: "GitHub activity",
+        verdict: "Insufficient evidence",
+        freshness: "Current",
+        evidenceCount: "1 source",
+        summary: "Development activity can support execution claims, but not customer or revenue claims.",
+        limitations: "Usage, customer and revenue evidence would be required for commercial traction.",
         tone: "amber",
-        what: "VisePanda was identified as the first real project story that inspired ViseCraft.",
-        why: "The demo can explain the product through an actual founder workflow while keeping VisePanda independent.",
-        technical:
-          "The live case study links to vp.jtcao.space and is treated as demo content, not hard-coded platform logic.",
-        business:
-          "Prospects can see why ViseCraft exists without mistaking it for a travel product or a VisePanda feature.",
-        sources: ["vp.jtcao.space", "Founder workflow", "Demo project notes"],
       },
     ],
-    viewModes: [
-      {
-        id: "founder" as ViewModeId,
-        label: "Founder",
-        items: ["Detailed progress", "Blockers", "Internal roadmap", "Evidence gaps", "Risks"],
+    proofEngine: {
+      title: "Verify the claim, not the company.",
+      body:
+        "Proof Engine separates each important statement, checks connected evidence and returns a scoped verdict with freshness and limitations.",
+      steps: [
+        { number: "01", title: "Extract the claim", body: "Break broad BP language into specific, testable statements." },
+        { number: "02", title: "Inspect the evidence", body: "Check source identity, status, time alignment, integrity and availability." },
+        { number: "03", title: "Issue a scoped verdict", body: "Show what the evidence supports, what it does not and when to recheck." },
+      ],
+      report: {
+        claimLabel: "Claim",
+        claim: "The current product version has been deployed.",
+        verdict: "Partially supported",
+        confidence: "Medium confidence",
+        evidence: [
+          ["Release record", "Version exists"],
+          ["Deployment record", "Production target"],
+          ["Commit correlation", "Needs confirmation"],
+        ],
+        limitationLabel: "What this does not prove",
+        limitation: "The available evidence does not confirm active usage, customer adoption or revenue.",
+        freshnessLabel: "Freshness",
+        freshness: "Recheck required within 24 hours",
+        checkedBy: "ViseCraft Proof Engine v0.x",
+        disclaimer:
+          "Verification evaluates whether connected evidence supports a specific claim. It is not an audit, certification or investment recommendation.",
       },
-      {
-        id: "investor" as ViewModeId,
-        label: "Investor",
-        items: ["Executive summary", "Key milestones", "Commercial meaning", "Current traction", "Risks", "Ask"],
-      },
-      {
-        id: "public" as ViewModeId,
-        label: "Public",
-        items: ["Product story", "Changelog", "Public roadmap", "Build in public updates"],
-      },
-    ],
-    useCases: [
-      {
-        title: "Early-stage founders",
-        body: "Keep fundraising, advisory and partner updates close to real execution evidence.",
-      },
-      {
-        title: "AI-native teams",
-        body: "Explain fast model, agent and product iteration in language non-technical stakeholders can follow.",
-      },
-      {
-        title: "Independent builders",
-        body: "Build in public with a project record that is clearer than a scattered changelog.",
-      },
-      {
-        title: "Non-technical founders",
-        body: "Understand what the engineering team shipped, tested, blocked or changed.",
-      },
-      {
-        title: "Accelerators and studios",
-        body: "Manage multiple project stories and recurring founder updates.",
-      },
-    ],
-    sections: {
-      problem: ["Problem", "Static decks cannot keep up with real execution.", "Static deck", "Living project story"],
-      proof: ["Proof Engine", "Claim-level evidence verification"],
-      bpBuilder: ["BP Builder", "Formal commercial BP generation"],
-      publish: ["Publishing", "Living BP website publishing"],
-      product: ["Product system", "Proof Engine, Narrative Engine and one-click publishing."],
-      how: ["Workflow", "Project activity, narrative, verification and publishing"],
-      demo: ["Live demo", "Interactive living BP"],
-      useCases: ["Use cases", "Startup progress reporting"],
-      privacy: ["Privacy", "Evidence access and visibility control"],
     },
-    demo: {
-      title: "VisePanda - Live case study",
-      body: "A live interactive BP with timeline, roadmap, version history and project evidence.",
-      cta: "Explore the live VisePanda story",
-      rows: ["Timeline", "Version history", "Development challenge", "Roadmap", "Investor view"],
+    scenarios: {
+      title: "One project record. Different jobs to be done.",
+      body: "Capabilities are grouped around the moment a founder needs them, not around a list of disconnected features.",
+      items: [
+        {
+          id: "fundraise",
+          label: "Raise with evidence",
+          title: "Make investor conversations easier to trust and faster to understand.",
+          body: "Turn current execution into a formal commercial BP, then keep material claims connected to their source context.",
+          capabilities: [
+            { title: "Formal BP Studio", body: "Structure the company, market, product, traction, risks and ask in one narrative.", signal: "Narrative" },
+            { title: "Investor View", body: "Prioritize milestones, business meaning, evidence gaps, risks and next steps.", signal: "Audience" },
+            { title: "Claim reports", body: "Let a reader inspect verdict, supporting evidence, freshness and limitations.", signal: "Proof" },
+          ],
+        },
+        {
+          id: "report",
+          label: "Report without rewriting",
+          title: "Turn ongoing work into updates without rebuilding the story every week.",
+          body: "Collect meaningful activity, translate technical progress into business language and keep the founder in control.",
+          capabilities: [
+            { title: "Activity review", body: "Accept, edit, merge or ignore candidate events before they enter the record.", signal: "Review" },
+            { title: "Living timeline", body: "Preserve versions, decisions, risks, releases and evidence in chronological context.", signal: "History" },
+            { title: "Recurring updates", body: "Compose highlights, challenges, decisions, next steps and asks from accepted progress.", signal: "Update" },
+          ],
+        },
+        {
+          id: "publish",
+          label: "Publish the living story",
+          title: "Give every audience one current link instead of another static file.",
+          body: "Choose a project name, preview the right audience view and publish the living BP as a project website.",
+          capabilities: [
+            { title: "Managed project URL", body: "Publish to a memorable project subdomain during early access.", signal: "Deploy" },
+            { title: "Audience modes", body: "Use founder, investor and public views from the same project record.", signal: "Views" },
+            { title: "Visibility controls", body: "Keep projects private by default, then choose public, unlisted or protected sharing.", signal: "Access" },
+          ],
+        },
+      ],
     },
-    privacyCards: [
-      ["Visibility control", "Projects are not public by default. Founders choose public, unlisted or protected sharing."],
-      ["Least-privilege GitHub", "Repository connection is separate from login and starts with metadata, not full source publishing."],
-      ["Human-confirmed AI", "Generated narratives require user review before they become accepted project events."],
-    ],
+    bpStudio: {
+      title: "Build a commercial BP that can keep up with the company.",
+      body: "A structured editorial system for the full investor narrative — connected to timelines, evidence and audience views.",
+      modules: [
+        { key: "01", title: "Executive summary", body: "Company thesis, stage, current status and ask.", output: "A concise entry point for the whole story." },
+        { key: "02", title: "Problem and solution", body: "Market pain, target user, product answer and why now.", output: "A clear problem-to-product argument." },
+        { key: "03", title: "Product and architecture", body: "Workflow, technical approach, moat, integrations and releases.", output: "A product narrative grounded in execution." },
+        { key: "04", title: "Market and business model", body: "Market framing, monetization logic, pricing and go-to-market path.", output: "A commercial model readers can inspect." },
+        { key: "05", title: "Traction and milestones", body: "Progress, launches, evidence-backed timeline and current gaps.", output: "Milestones with evidence boundaries." },
+        { key: "06", title: "Team, risks and ask", body: "Founder context, execution risks, next milestones and use of funds.", output: "A direct close with risks kept visible." },
+      ],
+      views: [
+        { id: "founder", title: "Founder", body: "Full progress, blockers, risks and evidence gaps." },
+        { id: "investor", title: "Investor", body: "Milestones, business meaning, traction, risks and ask." },
+        { id: "public", title: "Public", body: "Project story, changelog, roadmap and public evidence." },
+      ],
+      labels: {
+        document: "Living BP / Draft",
+        module: "Selected module",
+        narrative: "Narrative output",
+        evidence: "Evidence-aware",
+        audienceViews: "Audience views",
+      },
+    },
+    integrations: {
+      title: "Connect the sources where progress already happens.",
+      body: "ViseCraft starts with repository activity and founder input, then expands into the product, deployment and business stack.",
+      focusLabel: "MVP focus",
+      roadmapLabel: "Integration roadmap",
+      current: [
+        { name: "GitHub", status: "MVP focus", body: "Repository metadata, commits, pull requests, issues, releases, tags and contributors." },
+        { name: "Founder notes", status: "MVP focus", body: "Add decisions, risks, business events and context that do not exist in code." },
+      ],
+      planned: [
+        { name: "Vercel", status: "Planned" },
+        { name: "Linear", status: "Planned" },
+        { name: "Notion", status: "Planned" },
+        { name: "Figma", status: "Planned" },
+        { name: "Supabase", status: "Planned" },
+        { name: "Stripe", status: "Planned" },
+      ],
+      flow: ["Connect", "Collect", "Review", "Verify", "Publish"],
+    },
+    workflow: {
+      title: "From raw activity to a living project website.",
+      steps: [
+        { number: "01", title: "Create", body: "Add the company, product, market and visibility defaults." },
+        { number: "02", title: "Connect", body: "Bring repository activity and founder context into one project stream." },
+        { number: "03", title: "Review", body: "Promote only meaningful events into the timeline and BP." },
+        { number: "04", title: "Verify", body: "Check important claims against evidence, freshness and contradictions." },
+        { number: "05", title: "Publish", body: "Share one living site for investor, founder or public readers." },
+      ],
+    },
+    plans: {
+      title: "Start with one project. Upgrade when the reporting load grows.",
+      body: "The M1 plan structure is defined; paid pricing will be published when billing opens.",
+      pending: "Early access · pricing pending",
+      included: "Included",
+      items: [
+        {
+          name: "Free",
+          badge: "For one live project",
+          price: "$0",
+          description: "Build and publish the first evidence-aware project story.",
+          features: ["1 project", "Manual verification", "Living BP page", "ViseCraft mark on published pages"],
+          cta: "Start free",
+          href: "/signup",
+          featured: false,
+        },
+        {
+          name: "Pro",
+          badge: "For repeat reporting",
+          price: "Pricing at launch",
+          description: "Operate multiple project stories with more verification capacity.",
+          features: ["Up to 10 projects", "Higher verification frequency", "Remove ViseCraft mark", "Custom domain planned"],
+          cta: "Join Pro early access",
+          href: "/signup",
+          featured: true,
+        },
+      ],
+    },
+    caseStudy: {
+      title: "Inspect the product through a live project story.",
+      body: "The VisePanda page shows the interactive timeline, roadmap, version history and evidence-led editorial language in a public website format.",
+      project: "VisePanda",
+      status: "Live project story",
+      rows: [
+        ["Timeline", "Versioned project events"],
+        ["Evidence", "Source context and evidence levels"],
+        ["Roadmap", "Current and next-stage work"],
+        ["Audience", "Investor-readable project narrative"],
+      ],
+      cta: "Open live demo",
+    },
+    faq: {
+      title: "Questions before you publish.",
+      items: [
+        { question: "What does Proof Engine actually verify?", answer: "It evaluates whether connected evidence supports a specific claim. It does not verify an entire company, guarantee performance or make an investment recommendation." },
+        { question: "Does code prove that a product is live or used?", answer: "No. Code can support implementation. Deployment needs deployment evidence; usage needs usage evidence; revenue needs separate financial evidence." },
+        { question: "Will private repository evidence become public?", answer: "No. Projects and evidence remain private by default. A public page only exposes the result and evidence summary the project owner explicitly authorizes." },
+        { question: "How does publishing work during early access?", answer: "Choose a project name, prepare the audience view and publish to a managed project URL. Domain binding is currently completed as part of the early-access publishing workflow." },
+        { question: "Can I use a custom domain?", answer: "Custom domains are planned for Pro. The first release focuses on reliable managed project URLs and controlled sharing." },
+      ],
+    },
     finalCta: {
-      title: "Turn real progress into a project story people can explore, understand and verify.",
+      title: "Give real progress a story people can inspect.",
+      body: "Create the project record once. Keep the narrative, evidence and published page moving together.",
     },
-    consoleLabels: {
-      version: "Version",
-      phase: "Phase",
-      lastVerified: "Last verified",
-      timeline: "Project timeline",
-      selected: "Selected event",
-      what: "What happened",
-      why: "Why it matters",
-      technical: "Technical summary",
-      business: "Business meaning",
-      sources: "Source links",
-      viewAs: "View as",
-      raw: "Raw project activity",
-      translated: "translated without exaggeration",
-      narrative: "Investor-ready narrative",
-    },
-    comparisons: {
-      raw: ["Commits", "Issues", "Releases", "Founder notes"],
-      narrative: ["Business meaning", "Evidence level", "Audience view", "Weekly update"],
-    },
-    footer: ["Product", "Demo", "Privacy", "Terms", "Contact", "Sign in"],
+    footer: ["Product", "Live demo", "Privacy", "Terms", "Contact", "Sign in"],
+    footerCopyright: "© 2026 ViseCraft",
   },
   zh: {
     navItems: [
-      { label: "Proof Engine", href: "#proof-engine" },
-      { label: "BP 制作", href: "#bp-builder" },
-      { label: "发布网站", href: "#publish" },
-      { label: "工作流", href: "#how-it-works" },
+      { label: "产品", href: "#proof-engine" },
       { label: "使用场景", href: "#use-cases" },
-      { label: "案例", href: "#demo" },
+      { label: "BP Studio", href: "#bp-studio" },
+      { label: "集成生态", href: "#integrations" },
+      { label: "方案", href: "#plans" },
     ],
     actions: {
       signIn: "登录",
-      getStarted: "开始使用",
+      getStarted: "创建项目",
       viewDemo: "查看真实案例",
-      createProject: "创建项目",
+      comparePlans: "对比方案",
+      startFree: "免费开始",
+      joinPro: "申请 Pro 早期访问",
       alreadyHaveAccount: "已有账号？",
-      joinEarlyAccess: "申请早期访问",
+    },
+    a11y: {
+      primaryNavigation: "主导航",
+      toggleNavigation: "打开或关闭导航",
+      footerNavigation: "页脚导航",
     },
     hero: {
       title: "让每一个真实推进的项目，都成为可验证、持续生长的商业叙事。",
       subtitle:
-        "ViseCraft 将真实项目进展自动转化为可交互、可验证、持续更新的动态 BP、项目故事与投资人汇报。",
-      proof: "由 ViseCraft Proof Engine 提供 Claim 级证据验证。",
-    },
-    trust: "Proof Engine · Verified 叙事 · 动态 BP · 投资人更新",
-    proofEngine: {
-      label: "核心产品",
-      title: "ViseCraft Proof Engine 是每份动态 BP 背后的验证层。",
-      body:
-        "对关键声明逐条检查证据、时效、限制和矛盾。",
-      rows: [
-        ["Claim 级验证", "每条重要 BP、时间轴和周报表述都有独立验证结果。"],
-        ["证据支持", "GitHub、版本发布、Issue、部署记录、URL 和创始人笔记都保留来源上下文。"],
-        ["时效检查", "当前在线、项目活跃、当前版本等声明必须定期重新检查。"],
-        ["不误导", "系统解释限制，不认证整个公司，也不暗示投资价值。"],
-      ],
-      profile: [
-        ["产品证据", "代码支持"],
-        ["部署证据", "来源链接"],
-        ["用户使用证据", "未提供"],
-        ["时效", "当前"],
-        ["矛盾", "未发现"],
+        "ViseCraft 将真实产品与研发进展转化为动态 BP、投资人汇报和项目网站，并用 Proof Engine 对关键声明进行逐条证据检查。",
+      proof: "由 ViseCraft Proof Engine 提供证据支持",
+      facts: [
+        ["验证", "Claim 级"],
+        ["叙事", "持续更新"],
+        ["发布", "动态项目网站"],
       ],
     },
-    publish: {
-      label: "网站发布",
-      title: "将动态 BP 发布为可分享的项目网站。",
-      body:
-        "选择项目名称，生成 BP/汇报，并发布为 project-name.jtcao.space 这类网站。",
-      steps: [
-        ["命名", "选择项目 slug，例如 atlas-ai。"],
-        ["生成", "生成动态 BP、时间轴、证据摘要和多受众视图。"],
-        ["部署", "发布成 atlas-ai.jtcao.space 或其他已配置域名。"],
-        ["分享", "把链接发给投资人、合作方、顾问或公众。"],
-      ],
+    interfaceLabels: {
+      workspace: "创始人工作台",
+      project: "ViseCraft",
+      projectName: "ViseCraft",
+      proofEngine: "Proof Engine",
+      timeline: "时间轴",
+      bpStudio: "BP Studio",
+      publish: "发布",
+      claims: "待检查声明",
+      selectedClaim: "验证报告",
+      verdict: "结论",
+      evidence: "证据",
+      freshness: "时效",
+      supportingEvidence: "支持证据",
+      limitations: "限制",
+      checkedBy: "检查引擎",
+      openReport: "打开完整报告",
+      currentVersion: "当前版本",
+      proofEngineVersion: "Proof Engine v0.x",
+      sourceLinked: "来源链接",
+      founderReviewed: "创始人已审核",
     },
-    bpBuilder: {
-      label: "正式商业 BP 能力",
-      title: "制作投资人能直接阅读的正式商业化 BP，而不只是项目日志。",
-      body:
-        "成熟商业 BP 结构，关键结论继续连接证据。",
-      modules: [
-        ["执行摘要", "公司叙事、阶段、产品判断、当前状态和融资需求。"],
-        ["问题与解决方案", "市场痛点、产品答案、目标用户和为什么是现在。"],
-        ["产品与架构", "产品流程、技术壁垒、集成、路线图和版本历史。"],
-        ["市场与商业模式", "市场框架、变现逻辑、定价假设和 go-to-market 路径。"],
-        ["进展与里程碑", "项目进展、Demo、上线记录、证据支持时间轴和当前缺口。"],
-        ["团队、风险与融资需求", "创始人背景、执行风险、下一阶段里程碑、融资金额和资金用途。"],
-      ],
-      outputs: [
-        "投资人视图",
-        "创始人视图",
-        "公开视图",
-        "周报更新",
-        "动态 BP 网站",
-      ],
-    },
-    sourceStrip: [
-      { label: "GitHub", status: "已支持" },
-      { label: "版本发布", status: "已支持" },
-      { label: "Issues", status: "已支持" },
-      { label: "Pull requests", status: "已支持" },
-      { label: "创始人笔记", status: "已支持" },
-    ],
-    problems: [
-      "静态 BP 很快过期，项目一继续推进就需要重写。",
-      "投资人很难判断产品到底发生了什么真实变化。",
-      "GitHub 活动对非技术读者来说太难理解。",
-      "创始人反复从零整理周报、路演材料和进展说明。",
-      "关键决策、风险和失败实验分散在不同工具里。",
-    ],
-    livingStoryRows: [
-      ["活动", "收集仓库活动和创始人笔记，不强行塞进幻灯片格式。"],
-      ["叙事", "把技术工作翻译成商业进展，并保留人工确认。"],
-      ["证据", "每个里程碑都保留来源链接和证据等级。"],
-      ["视图", "同一套项目数据可切换创始人、投资人和公开视角。"],
-    ],
-    capabilities: [
+    heroClaims: [
       {
-        title: "Proof Engine",
-        body: "在项目进展被展示为可信叙事之前，先逐条检查声明、证据、时效和限制。",
-        points: ["声明提取", "证据匹配", "时效检查", "矛盾检测"],
-      },
-      {
-        title: "发布成 BP 网站",
-        body: "把动态 BP 或投资人汇报变成可部署的网站，并绑定一个容易分享的项目子域名。",
-        points: ["动态 BP", "投资人汇报", "公开页面", "分享链接"],
-      },
-      {
-        title: "技术到商业的翻译",
-        body: "把原始研发活动转换成投资人可读的项目成果，同时避免夸大事实。",
-        points: ["影响摘要", "技术背景", "风险说明", "创始人编辑"],
-      },
-      {
-        title: "投资人更新",
-        body: "生成周报和月报，包括亮点、挑战、风险、下一步和创始人需要的支持。",
-        points: ["周报", "月报", "风险", "下一步"],
-      },
-    ],
-    howItWorks: [
-      { step: "01", title: "创建项目", body: "填写公司、产品、市场、阶段、创始人信息和默认可见性。" },
-      { step: "02", title: "连接数据源", body: "连接 GitHub 活动与创始人笔记，形成统一项目活动流。" },
-      { step: "03", title: "审核有意义的进展", body: "接受、编辑、合并或隐藏系统生成的候选事件。" },
-      { step: "04", title: "验证项目声明", body: "Proof Engine 在汇报被信任前，逐条检查证据、时效、限制和矛盾。" },
-      { step: "05", title: "发布并分享", body: "将动态 BP 发布为项目网站，用一个持续更新的链接完成分享。" },
-    ],
-    timelineEvents: [
-      {
-        version: "1.0.3",
-        date: "7月15日",
-        time: "10:42 UTC",
-        title: "ViseCraft 启动页上线",
-        status: "来源链接",
-        evidence: "来源链接",
+        title: "ViseCraft 独立产品启动界面已经实现。",
+        source: "仓库提交",
+        verdict: "代码支持",
+        freshness: "历史事实",
+        evidenceCount: "3 条来源",
+        summary: "仓库记录支持独立产品界面已经实现这一声明。",
+        limitations: "代码可以证明实现，不能证明已有真实用户采用。",
         tone: "jade",
-        what: "ViseCraft 的第一个公开启动页和认证入口已作为独立产品创建。",
-        why: "这让投资人沟通、用户访谈和早期访问收集都有一个正式入口。",
-        technical: "Next.js App Router、暗色设计 token、Supabase Auth adapter、preview auth fallback 和受保护 workspace。",
-        business: "ViseCraft 现在可以作为独立 SaaS 展示，而不是只能通过 VisePanda 案例解释。",
-        sources: ["仓库提交", "产品规格", "Auth callback route"],
       },
       {
-        version: "1.0.2",
-        date: "7月12日",
-        time: "14:18 UTC",
-        title: "证据模型与产品 claims 解耦",
-        status: "代码支持",
-        evidence: "代码支持",
+        title: "当前公开产品版本为 v1.0.4。",
+        source: "Package metadata",
+        verdict: "来源链接",
+        freshness: "当前",
+        evidenceCount: "2 条来源",
+        summary: "页面版本与仓库 package metadata 和产品时间轴一致。",
+        limitations: "版本一致不代表所有 M1 规划流程已经完成。",
         tone: "blue",
-        what: "产品文案、Demo 事件、证据等级和视图模式被拆分到独立数据模块。",
-        why: "设计系统可以被不同项目复用，而不会强迫某个创始人故事或夸大商业结论。",
-        technical: "营销内容独立于 UI 组件，后续可以替换为数据库驱动的项目数据。",
-        business: "这保护了信任：ViseCraft 展示证据和人工编辑，不暗示所有 claims 都具备同等证明力。",
-        sources: ["内容模块", "设计 token", "证据标签"],
       },
       {
-        version: "1.0.1",
-        date: "7月09日",
-        time: "09:31 UTC",
-        title: "VisePanda 案例被定义",
-        status: "自述信息",
-        evidence: "自述信息",
+        title: "仓库活动可以证明商业进展。",
+        source: "GitHub 活动",
+        verdict: "证据不足",
+        freshness: "当前",
+        evidenceCount: "1 条来源",
+        summary: "开发活动可以支持执行层声明，但不能单独支持客户或收入声明。",
+        limitations: "商业进展需要用户、客户或收入等独立证据。",
         tone: "amber",
-        what: "VisePanda 被定义为启发 ViseCraft 的第一个真实项目故事。",
-        why: "Demo 可以用真实创始人工作流解释产品，同时保持 VisePanda 的独立性。",
-        technical: "真实案例链接到 vp.jtcao.space，并作为 Demo 内容处理，不写死进平台逻辑。",
-        business: "访客可以理解 ViseCraft 的来源，而不会误以为它是旅游产品或 VisePanda 功能。",
-        sources: ["vp.jtcao.space", "创始人工作流", "Demo 项目笔记"],
       },
     ],
-    viewModes: [
-      { id: "founder" as ViewModeId, label: "创始人", items: ["详细进展", "阻塞问题", "内部 Roadmap", "证据缺口", "风险"] },
-      { id: "investor" as ViewModeId, label: "投资人", items: ["执行摘要", "关键里程碑", "商业意义", "当前进展", "风险", "融资需求"] },
-      { id: "public" as ViewModeId, label: "公开", items: ["产品故事", "Changelog", "公开 Roadmap", "Build in public 更新"] },
-    ],
-    useCases: [
-      { title: "早期创业者", body: "把融资、顾问沟通和合作方更新与真实执行证据连接起来。" },
-      { title: "AI Native 团队", body: "把快速模型迭代、Agent 协作和产品变化讲给非技术利益相关方听。" },
-      { title: "独立开发者", body: "用比零散 changelog 更清晰的方式 build in public。" },
-      { title: "非技术创始人", body: "理解技术团队到底完成、测试、阻塞或调整了什么。" },
-      { title: "加速器与工作室", body: "管理多项目组合与周期性 founder updates。" },
-    ],
-    sections: {
-      problem: ["问题", "静态 BP 跟不上真实执行。", "静态 BP", "动态项目故事"],
-      proof: ["Proof Engine", "Claim 级证据验证"],
-      bpBuilder: ["BP Builder", "正式商业 BP 生成"],
-      publish: ["网站发布", "动态 BP 网站发布"],
-      product: ["产品系统", "Proof Engine、叙事引擎和一键发布。"],
-      how: ["工作流", "项目活动、叙事生成、证据验证与发布"],
-      demo: ["动态案例", "动态交互式 BP"],
-      useCases: ["使用场景", "创业项目进展汇报"],
-      privacy: ["隐私", "证据权限与可见性控制"],
+    proofEngine: {
+      title: "验证具体声明，而不是认证整个公司。",
+      body: "Proof Engine 拆分每一条重要表述，检查已连接证据，并给出包含时效和限制的明确结论。",
+      steps: [
+        { number: "01", title: "提取声明", body: "把宽泛的 BP 表述拆解成具体、可检查的陈述。" },
+        { number: "02", title: "检查证据", body: "检查来源身份、状态、时间对应、完整性和当前可用性。" },
+        { number: "03", title: "给出有限结论", body: "明确证据支持什么、不支持什么，以及何时需要复查。" },
+      ],
+      report: {
+        claimLabel: "声明",
+        claim: "当前产品版本已经部署。",
+        verdict: "部分支持",
+        confidence: "中等置信度",
+        evidence: [
+          ["Release 记录", "版本存在"],
+          ["Deployment 记录", "生产环境目标"],
+          ["Commit 关联", "需要确认"],
+        ],
+        limitationLabel: "当前证据不能证明",
+        limitation: "这些证据不能确认真实用户使用、客户采用或收入。",
+        freshnessLabel: "时效",
+        freshness: "需要在 24 小时内重新检查",
+        checkedBy: "ViseCraft Proof Engine v0.x",
+        disclaimer: "验证仅评估已连接证据是否支持具体声明，不构成审计、认证或投资建议。",
+      },
     },
-    demo: {
-      title: "VisePanda - 真实案例",
-      body: "一个包含时间轴、Roadmap、版本历史和项目证据的动态交互式 BP。",
-      cta: "查看 VisePanda 真实项目故事",
-      rows: ["时间轴", "版本历史", "开发挑战", "Roadmap", "投资人视图"],
+    scenarios: {
+      title: "同一份项目记录，解决不同的关键任务。",
+      body: "能力围绕创始人真正需要完成的场景组织，而不是堆叠互不相关的功能。",
+      items: [
+        {
+          id: "fundraise",
+          label: "用证据融资",
+          title: "让投资人更快理解，也更容易判断信息边界。",
+          body: "把当前执行转化为正式商业 BP，并让重要结论继续连接来源上下文。",
+          capabilities: [
+            { title: "正式 BP Studio", body: "把公司、市场、产品、进展、风险和融资需求组织为完整叙事。", signal: "叙事" },
+            { title: "投资人视图", body: "集中呈现里程碑、商业意义、证据缺口、风险与下一步。", signal: "受众" },
+            { title: "Claim 报告", body: "让读者查看结论、支持证据、时效和限制。", signal: "证据" },
+          ],
+        },
+        {
+          id: "report",
+          label: "持续汇报",
+          title: "不再每周从零重写项目故事。",
+          body: "收集有意义的活动，把技术进展翻译为商业语言，同时保留创始人的最终控制。",
+          capabilities: [
+            { title: "活动审核", body: "候选事件进入正式记录前可以接受、编辑、合并或忽略。", signal: "审核" },
+            { title: "动态时间轴", body: "按时间保留版本、决策、风险、发布和证据上下文。", signal: "档案" },
+            { title: "周期更新", body: "从已接受进展整理亮点、挑战、决策、下一步和需要的支持。", signal: "更新" },
+          ],
+        },
+        {
+          id: "publish",
+          label: "发布动态故事",
+          title: "给每一种受众一个持续更新的链接。",
+          body: "选择项目名称，预览对应受众视图，再把动态 BP 发布成项目网站。",
+          capabilities: [
+            { title: "托管项目地址", body: "早期访问阶段可发布到易于分享的项目子域名。", signal: "部署" },
+            { title: "多受众视图", body: "同一份项目记录生成创始人、投资人和公开视图。", signal: "视图" },
+            { title: "可见性控制", body: "项目默认私密，再选择公开、非公开或受保护分享。", signal: "权限" },
+          ],
+        },
+      ],
     },
-    privacyCards: [
-      ["可见性控制", "项目默认不会公开。创始人可以选择公开、非公开或受保护分享。"],
-      ["最小 GitHub 权限", "仓库连接独立于登录流程，只读取授权的项目 metadata，不默认公开完整源码。"],
-      ["AI 需人工确认", "AI 生成内容在成为正式项目事件前，需要用户审核。"],
-    ],
+    bpStudio: {
+      title: "制作一份能跟随公司持续生长的正式商业 BP。",
+      body: "覆盖完整投资人叙事的结构化编辑系统，并与时间轴、证据和受众视图连接。",
+      modules: [
+        { key: "01", title: "执行摘要", body: "公司判断、阶段、当前状态和融资需求。", output: "为完整故事提供清晰入口。" },
+        { key: "02", title: "问题与解决方案", body: "市场痛点、目标用户、产品答案与为什么是现在。", output: "建立明确的问题到产品逻辑。" },
+        { key: "03", title: "产品与架构", body: "产品流程、技术方案、壁垒、集成与版本发布。", output: "让产品叙事建立在真实执行上。" },
+        { key: "04", title: "市场与商业模式", body: "市场框架、变现逻辑、定价和 go-to-market 路径。", output: "让读者可以检查商业模型。" },
+        { key: "05", title: "进展与里程碑", body: "进展、上线、证据时间轴和当前缺口。", output: "保留证据边界的里程碑。" },
+        { key: "06", title: "团队、风险与融资需求", body: "创始人背景、执行风险、下一阶段与资金用途。", output: "不隐藏风险的直接收尾。" },
+      ],
+      views: [
+        { id: "founder", title: "创始人", body: "完整进展、阻塞、风险和证据缺口。" },
+        { id: "investor", title: "投资人", body: "里程碑、商业意义、进展、风险和融资需求。" },
+        { id: "public", title: "公开", body: "项目故事、Changelog、Roadmap 和公开证据。" },
+      ],
+      labels: {
+        document: "动态 BP / 草稿",
+        module: "当前模块",
+        narrative: "叙事输出",
+        evidence: "证据感知",
+        audienceViews: "受众视图",
+      },
+    },
+    integrations: {
+      title: "连接项目进展真实发生的地方。",
+      body: "ViseCraft 从仓库活动和创始人输入开始，再扩展到产品、部署和商业工具链。",
+      focusLabel: "MVP 重点",
+      roadmapLabel: "集成路线图",
+      current: [
+        { name: "GitHub", status: "MVP 重点", body: "仓库 metadata、Commit、Pull request、Issue、Release、Tag 和贡献者。" },
+        { name: "创始人笔记", status: "MVP 重点", body: "补充代码里不存在的决策、风险、商业事件和项目背景。" },
+      ],
+      planned: [
+        { name: "Vercel", status: "规划中" },
+        { name: "Linear", status: "规划中" },
+        { name: "Notion", status: "规划中" },
+        { name: "Figma", status: "规划中" },
+        { name: "Supabase", status: "规划中" },
+        { name: "Stripe", status: "规划中" },
+      ],
+      flow: ["连接", "收集", "审核", "验证", "发布"],
+    },
+    workflow: {
+      title: "从原始活动到持续更新的项目网站。",
+      steps: [
+        { number: "01", title: "创建", body: "填写公司、产品、市场和默认可见性。" },
+        { number: "02", title: "连接", body: "将仓库活动和创始人背景汇入同一项目流。" },
+        { number: "03", title: "审核", body: "只把有意义的事件晋升到时间轴和 BP。" },
+        { number: "04", title: "验证", body: "逐条检查重要声明的证据、时效和矛盾。" },
+        { number: "05", title: "发布", body: "用一个动态网站服务投资人、创始人或公开读者。" },
+      ],
+    },
+    plans: {
+      title: "从一个项目开始，随着汇报负担增加再升级。",
+      body: "M1 方案结构已经确定；付费价格将在计费开放时公布。",
+      pending: "早期访问 · 价格待公布",
+      included: "包含",
+      items: [
+        {
+          name: "Free",
+          badge: "适合第一个项目",
+          price: "¥0",
+          description: "建立并发布第一份有证据边界的项目故事。",
+          features: ["1 个项目", "手动验证", "动态 BP 页面", "发布页保留 ViseCraft 标识"],
+          cta: "免费开始",
+          href: "/signup",
+          featured: false,
+        },
+        {
+          name: "Pro",
+          badge: "适合持续汇报",
+          price: "上线时公布",
+          description: "管理多份项目故事，并获得更高验证容量。",
+          features: ["最多 10 个项目", "更高验证频率", "移除 ViseCraft 标识", "自定义域名规划中"],
+          cta: "申请 Pro 早期访问",
+          href: "/signup",
+          featured: true,
+        },
+      ],
+    },
+    caseStudy: {
+      title: "通过真实项目故事判断产品能力。",
+      body: "VisePanda 页面以公开网站形式展示动态时间轴、Roadmap、版本历史和证据优先的编辑语言。",
+      project: "VisePanda",
+      status: "动态项目故事",
+      rows: [
+        ["时间轴", "带版本的项目事件"],
+        ["证据", "来源上下文与证据等级"],
+        ["Roadmap", "当前工作与下一阶段"],
+        ["受众", "投资人可读的项目叙事"],
+      ],
+      cta: "打开真实案例",
+    },
+    faq: {
+      title: "发布之前，先把边界说清楚。",
+      items: [
+        { question: "Proof Engine 到底验证什么？", answer: "它评估已连接证据是否支持某一条具体声明，不验证整个公司，不保证经营表现，也不提供投资建议。" },
+        { question: "代码能证明产品已经上线或有人使用吗？", answer: "不能。代码可以支持“已经实现”；上线需要部署证据；使用需要 Usage 证据；收入还需要独立财务证据。" },
+        { question: "私有仓库证据会自动公开吗？", answer: "不会。项目和证据默认私密。公开页面只展示项目所有者明确授权的验证结果和证据摘要。" },
+        { question: "早期访问阶段如何发布？", answer: "选择项目名称、准备受众视图，再发布到托管项目地址。域名绑定目前作为早期访问发布流程的一部分完成。" },
+        { question: "可以使用自己的域名吗？", answer: "Pro 方案规划支持自定义域名。第一版优先确保托管项目地址和受控分享可靠运行。" },
+      ],
+    },
     finalCta: {
-      title: "让真实进展成为可以探索、理解与验证的项目故事。",
+      title: "让真实进展，成为一份可以被检查的故事。",
+      body: "只建立一次项目记录，让叙事、证据和发布页面始终一起更新。",
     },
-    consoleLabels: {
-      version: "版本",
-      phase: "阶段",
-      lastVerified: "最后确认",
-      timeline: "项目时间轴",
-      selected: "选中事件",
-      what: "发生了什么",
-      why: "为什么重要",
-      technical: "技术摘要",
-      business: "商业意义",
-      sources: "来源链接",
-      viewAs: "视图",
-      raw: "原始项目活动",
-      translated: "不夸大地翻译",
-      narrative: "投资人可读叙事",
-    },
-    comparisons: {
-      raw: ["Commits", "Issues", "Releases", "创始人笔记"],
-      narrative: ["商业意义", "证据等级", "受众视图", "周报"],
-    },
-    footer: ["产品", "案例", "隐私", "条款", "联系", "登录"],
+    footer: ["产品", "真实案例", "隐私", "条款", "联系", "登录"],
+    footerCopyright: "© 2026 ViseCraft",
   },
 };

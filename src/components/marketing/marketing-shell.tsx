@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { ActionLink } from "@/components/marketing/marketing-primitives";
 import { landingContent } from "@/content/landing";
 import { trackEvent } from "@/lib/analytics/track";
 import { useLocale } from "@/lib/i18n/use-locale";
@@ -22,10 +23,10 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[rgba(6,9,11,0.88)] backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[rgba(6,9,11,0.97)]">
         <div className="content-rail flex h-16 items-center justify-between">
           <ViseCraftMark />
-          <nav className="hidden items-center gap-8 text-sm text-[var(--text-dim)] lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-8 text-sm text-[var(--text-dim)] lg:flex" aria-label={copy.a11y.primaryNavigation}>
             {copy.navItems.map((item) => (
               <a key={item.href} className="transition hover:text-[var(--text)]" href={item.href}>
                 {item.label}
@@ -41,18 +42,16 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
             >
               {copy.actions.signIn}
             </Link>
-            <Link
-              className="inline-flex h-10 items-center gap-2 border border-[var(--jade)] px-4 text-sm font-medium text-[var(--jade)] transition hover:bg-[rgba(52,211,153,0.1)]"
+            <ActionLink
               href="/signup"
               onClick={() => trackEvent("get_started_click", { surface: "nav" })}
-              style={{ borderRadius: "8px" }}
             >
-              {copy.actions.getStarted} <ArrowRight size={16} />
-            </Link>
+              {copy.actions.getStarted}
+            </ActionLink>
           </div>
           <button
             aria-expanded={mobileOpen}
-            aria-label="Toggle navigation"
+            aria-label={copy.a11y.toggleNavigation}
             className="inline-flex size-10 items-center justify-center border border-[var(--line-hi)] text-[var(--text)] lg:hidden"
             onClick={() => setMobileOpen((value) => !value)}
             style={{ borderRadius: "8px" }}
@@ -73,19 +72,22 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
                   {item.label}
                 </a>
               ))}
-              <div className="flex items-center gap-3 pt-4">
-                <LanguageSwitch compact />
-                <Link className="text-[var(--text)]" href="/login" onClick={() => trackEvent("sign_in_click")}>
-                  {copy.actions.signIn}
-                </Link>
-                <Link
-                  className="border border-[var(--jade)] px-3 py-2 text-[var(--jade)]"
+              <div className="grid gap-3 pt-4">
+                <div className="flex items-center justify-between gap-3">
+                  <LanguageSwitch compact />
+                  <Link className="text-[var(--text)]" href="/login" onClick={() => trackEvent("sign_in_click")}>
+                    {copy.actions.signIn}
+                  </Link>
+                </div>
+                <ActionLink
                   href="/signup"
-                  onClick={() => trackEvent("get_started_click", { surface: "mobile_nav" })}
-                  style={{ borderRadius: "8px" }}
+                  onClick={() => {
+                    setMobileOpen(false);
+                    trackEvent("get_started_click", { surface: "mobile_nav" });
+                  }}
                 >
                   {copy.actions.getStarted}
-                </Link>
+                </ActionLink>
               </div>
             </nav>
           </div>
@@ -95,7 +97,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
       <footer className="border-t border-[var(--line)] bg-[var(--bg1)] py-8">
         <div className="content-rail flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <ViseCraftMark />
-          <nav className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-[var(--text-dim)]" aria-label="Footer">
+          <nav className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-[var(--text-dim)]" aria-label={copy.a11y.footerNavigation}>
             <a href="#proof-engine">{copy.footer[0]}</a>
             <a href="https://vp.jtcao.space" target="_blank" rel="noreferrer">
               {copy.footer[1]}
@@ -105,7 +107,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
             <a href="mailto:hello@jtcao.space">{copy.footer[4]}</a>
             <Link href="/login">{copy.footer[5]}</Link>
           </nav>
-          <p className="mono-label text-[var(--text-faint)]">© 2026 ViseCraft</p>
+          <p className="mono-label text-[var(--text-faint)]">{copy.footerCopyright}</p>
         </div>
       </footer>
     </>
