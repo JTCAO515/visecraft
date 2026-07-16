@@ -3,8 +3,8 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { GitBranch } from "lucide-react";
-import { ViseCraftMark } from "@/components/shared/logo";
+import { GitBranch, ShieldCheck } from "lucide-react";
+import { EvidenceBadge, ViseCraftMark } from "@/components/shared/logo";
 import { LanguageSwitch } from "@/components/shared/language-switch";
 import { Field } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/submit-button";
@@ -15,6 +15,7 @@ import { getSupabaseConfig, isPreviewAuthEnabled } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/client";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { authContent } from "@/content/auth";
+import { landingContent, type LandingCopy } from "@/content/landing";
 
 type Mode = "login" | "signup";
 type AuthField = "name" | "email" | "password" | "acceptedTerms";
@@ -28,6 +29,7 @@ export function AuthPanel({ mode }: { mode: Mode }) {
   const previewEnabled = useMemo(() => isPreviewAuthEnabled(), []);
   const { locale } = useLocale();
   const copy = authContent[locale];
+  const productCopy = landingContent[locale];
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -180,36 +182,24 @@ export function AuthPanel({ mode }: { mode: Mode }) {
   }
 
   return (
-    <div className="grid min-h-screen bg-[var(--bg0)] text-[var(--text)] lg:grid-cols-[0.9fr_1.1fr]">
-      <section className="flex min-h-[42vh] flex-col justify-between border-b border-[var(--line)] bg-[var(--bg1)] p-6 lg:min-h-screen lg:border-b-0 lg:border-r lg:p-10">
+    <div className="grid min-h-screen bg-[var(--bg0)] text-[var(--text)] lg:grid-cols-[minmax(28rem,0.82fr)_minmax(34rem,1.18fr)]">
+      <section className="flex min-h-screen flex-col border-r border-[var(--line)] p-6 md:p-10 lg:p-12">
         <div className="flex items-center justify-between gap-4">
           <ViseCraftMark />
           <LanguageSwitch compact />
         </div>
-        <div className="max-w-xl py-16">
+
+        <div className="my-auto w-full max-w-md py-14 lg:mx-auto">
           <p className="mono-label text-[var(--jade)]">{copy.label}</p>
-          <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">
+          <h1 className="mt-4 text-4xl font-semibold leading-[1.04] tracking-[-0.035em] md:text-5xl">
             {isSignup ? copy.signupTitle : copy.loginTitle}
           </h1>
-          <p className="mt-5 text-base leading-7 text-[var(--text-dim)]">
-            {copy.explanation}
+          <p className="mt-4 text-sm leading-6 text-[var(--text-dim)]">
+            {isSignup ? copy.signupIntro : copy.loginIntro}
           </p>
-        </div>
-        <Link className="text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/">
-          {copy.returnHome}
-        </Link>
-      </section>
-
-      <section className="flex items-center justify-center p-6 lg:p-10">
-        <div className="w-full max-w-md">
-          <div className="border border-[var(--line)] bg-[var(--surface)] p-6" style={{ borderRadius: "14px" }}>
-            <h2 className="text-2xl font-semibold">{isSignup ? copy.requestAccess : copy.signIn}</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--text-dim)]">
-              {isSignup ? copy.signupIntro : copy.loginIntro}
-            </p>
 
             <button
-              className="mt-6 flex h-11 w-full items-center justify-center gap-2 border border-[var(--line-hi)] text-sm font-medium text-[var(--text)] transition hover:bg-[var(--surface-hi)] disabled:cursor-not-allowed disabled:opacity-60"
+              className="pressable mt-7 flex h-12 w-full items-center justify-center gap-2 border border-[var(--line-hi)] text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-hi)] disabled:cursor-not-allowed disabled:opacity-60"
               disabled={loading}
               onClick={signInWithGitHub}
               style={{ borderRadius: "8px" }}
@@ -294,27 +284,103 @@ export function AuthPanel({ mode }: { mode: Mode }) {
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[var(--text-dim)]">
               {isSignup ? (
-                <Link className="hover:text-[var(--text)]" href="/login">
+                <Link className="pressable hover:text-[var(--text)]" href="/login">
                   {copy.alreadyHaveAccount}
                 </Link>
               ) : (
-                <button className="hover:text-[var(--text)]" onClick={sendReset} type="button">
+                <button className="pressable hover:text-[var(--text)]" onClick={sendReset} type="button">
                   {copy.forgotPassword}
                 </button>
               )}
-              <Link className="text-[var(--blue)]" href={isSignup ? "/login" : "/signup"}>
+              <Link className="pressable text-[var(--blue)]" href={isSignup ? "/login" : "/signup"}>
                 {isSignup ? copy.signIn : copy.createAccount}
               </Link>
             </div>
-          </div>
-
           {previewEnabled && !supabaseConfig.isConfigured ? (
             <p className="mt-4 border border-[var(--line)] bg-[var(--bg1)] px-4 py-3 text-xs leading-5 text-[var(--text-dim)]" style={{ borderRadius: "10px" }}>
               {copy.previewNotice}
             </p>
           ) : null}
         </div>
+
+        <Link className="pressable w-fit text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/">
+          {copy.returnHome}
+        </Link>
       </section>
+
+      <section className="auth-product-stage hidden min-h-screen overflow-hidden p-8 lg:flex lg:items-center lg:justify-center xl:p-14" aria-label={productCopy.interfaceLabels.workspace}>
+        <AuthProductPreview copy={productCopy} />
+      </section>
+    </div>
+  );
+}
+
+function AuthProductPreview({ copy }: { copy: LandingCopy }) {
+  const selectedClaim = copy.heroClaims[0];
+
+  return (
+    <div className="material-thick w-full max-w-4xl overflow-hidden">
+      <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4">
+        <div>
+          <p className="mono-label text-[var(--text-faint)]">{copy.interfaceLabels.workspace}</p>
+          <p className="mt-1 text-sm font-semibold">{copy.interfaceLabels.projectName}</p>
+        </div>
+        <EvidenceBadge label={copy.hero.proof} />
+      </div>
+
+      <div className="grid min-h-[34rem] grid-cols-[13rem_minmax(0,1fr)]">
+        <aside className="border-r border-[var(--line)] bg-[var(--bg0)] p-4">
+          {[copy.interfaceLabels.proofEngine, copy.interfaceLabels.timeline, copy.interfaceLabels.bpStudio, copy.interfaceLabels.publish].map((item, index) => (
+            <div
+              className={`flex items-center gap-3 border-b border-[var(--line)] px-2 py-3 text-sm ${index === 0 ? "text-[var(--jade)]" : "text-[var(--text-faint)]"}`}
+              key={item}
+            >
+              <span className={`size-1.5 rounded-full ${index === 0 ? "bg-[var(--jade)]" : "bg-[var(--line-hi)]"}`} />
+              {item}
+            </div>
+          ))}
+        </aside>
+
+        <div className="min-w-0 p-6 xl:p-8">
+          <div className="flex items-start justify-between gap-5 border-b border-[var(--line)] pb-6">
+            <div>
+              <p className="mono-label text-[var(--jade)]">{copy.interfaceLabels.selectedClaim}</p>
+              <h2 className="mt-3 max-w-xl text-2xl font-semibold leading-tight tracking-[-0.025em]">{selectedClaim.title}</h2>
+            </div>
+            <ShieldCheck className="shrink-0 text-[var(--jade)]" size={22} aria-hidden="true" />
+          </div>
+
+          <div className="grid gap-6 py-6 xl:grid-cols-[0.62fr_0.38fr]">
+            <div>
+              <p className="mono-label text-[var(--text-faint)]">{copy.interfaceLabels.supportingEvidence}</p>
+              {copy.heroClaims.slice(0, 2).map((claim) => (
+                <div className="border-b border-[var(--line)] py-4" key={claim.title}>
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-sm font-medium">{claim.source}</p>
+                    <EvidenceBadge label={claim.verdict} tone={claim.tone} />
+                  </div>
+                  <p className="mt-2 text-xs leading-5 text-[var(--text-dim)]">{claim.summary}</p>
+                </div>
+              ))}
+            </div>
+
+            <dl className="border-l border-[var(--line)] pl-6 text-sm">
+              <div className="border-b border-[var(--line)] pb-4">
+                <dt className="mono-label text-[var(--text-faint)]">{copy.interfaceLabels.verdict}</dt>
+                <dd className="mt-2 text-[var(--jade)]">{selectedClaim.verdict}</dd>
+              </div>
+              <div className="border-b border-[var(--line)] py-4">
+                <dt className="mono-label text-[var(--text-faint)]">{copy.interfaceLabels.freshness}</dt>
+                <dd className="mt-2">{selectedClaim.freshness}</dd>
+              </div>
+              <div className="pt-4">
+                <dt className="mono-label text-[var(--text-faint)]">{copy.interfaceLabels.limitations}</dt>
+                <dd className="mt-2 text-xs leading-5 text-[var(--text-dim)]">{selectedClaim.limitations}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

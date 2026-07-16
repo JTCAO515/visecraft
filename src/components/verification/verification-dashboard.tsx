@@ -26,9 +26,9 @@ export function VerificationDashboard({
 
   return (
     <main className="min-h-screen bg-[var(--bg0)] text-[var(--text)]">
-      <header className="border-b border-[var(--line)] bg-[var(--bg1)]">
-        <div className="content-rail flex min-h-16 flex-wrap items-center justify-between gap-4 py-4">
-          <Link className="text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/app">
+      <header className="floating-page-header">
+        <div className="content-rail material-chrome flex min-h-14 flex-wrap items-center justify-between gap-4 px-4 py-3">
+          <Link className="pressable text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/app">
             ← Workspace
           </Link>
           <p className="mono-label text-[var(--jade)]">Checked by ViseCraft Proof Engine</p>
@@ -134,7 +134,7 @@ export function VerificationDashboard({
               return (
                 <Link
                   key={result.id}
-                  className="grid gap-4 border-b border-[var(--line)] p-5 transition hover:bg-[var(--surface-hi)] last:border-b-0 md:grid-cols-[1fr_140px_190px] md:items-start"
+                  className="pressable-row grid gap-4 border-b border-[var(--line)] p-5 hover:bg-[var(--surface-hi)] last:border-b-0 md:grid-cols-[1fr_140px_190px] md:items-start"
                   href={`/app/projects/${projectId}/verification/${claim.id}`}
                 >
                   <div>

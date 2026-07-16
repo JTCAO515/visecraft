@@ -26,7 +26,7 @@ export function Field({
         {...inputProps}
         aria-describedby={describedBy}
         aria-invalid={Boolean(error)}
-        className={`mt-2 h-11 w-full border bg-[var(--bg0)] px-3 text-[var(--text)] outline-none transition placeholder:text-[var(--text-faint)] ${error ? "border-[var(--rose)]" : "border-[var(--line-hi)] focus:border-[var(--jade)]"} ${className}`}
+        className={`mt-2 h-12 w-full border bg-[var(--bg0)] px-3.5 text-[var(--text)] outline-none transition placeholder:text-[var(--text-faint)] ${error ? "border-[var(--rose)]" : "border-[var(--line-hi)] focus:border-[var(--jade)] focus:bg-[var(--bg1)]"} ${className}`}
         id={inputId}
         style={{ borderRadius: "var(--radius-sm)" }}
       />

@@ -16,13 +16,13 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
 
   return (
     <main className="min-h-screen bg-[var(--bg0)] text-[var(--text)]">
-      <header className="border-b border-[var(--line)] bg-[var(--bg1)]">
-        <div className="content-rail flex h-16 items-center justify-between">
+      <header className="floating-page-header">
+        <div className="content-rail material-chrome flex h-14 items-center justify-between px-4">
           <ViseCraftMark href="/app" />
           <div className="flex items-center gap-4">
             <LanguageSwitch compact />
             <form action="/api/auth/logout" method="post">
-              <button className="inline-flex items-center gap-2 text-sm text-[var(--text-dim)] hover:text-[var(--text)]" type="submit">
+              <button className="pressable inline-flex items-center gap-2 text-sm text-[var(--text-dim)] hover:text-[var(--text)]" type="submit">
                 <LogOut size={16} /> {copy.logout}
               </button>
             </form>
@@ -43,7 +43,7 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CreateProjectLink surface="workspace_empty_state" />
               <a
-                className="inline-flex h-11 items-center gap-2 border border-[var(--line-hi)] px-4 text-sm text-[var(--blue)]"
+                className="pressable inline-flex h-11 items-center gap-2 border border-[var(--line-hi)] px-4 text-sm text-[var(--blue)]"
                 href="https://vp.jtcao.space"
                 target="_blank"
                 rel="noreferrer"
@@ -52,7 +52,7 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
                 {copy.viewDemo} <ExternalLink size={16} />
               </a>
               <Link
-                className="inline-flex h-11 items-center gap-2 border border-[rgba(52,211,153,0.42)] px-4 text-sm text-[var(--jade)]"
+                className="pressable inline-flex h-11 items-center gap-2 border border-[rgba(52,211,153,0.42)] px-4 text-sm text-[var(--jade)]"
                 href="/app/projects/visepanda-demo/verification"
                 style={{ borderRadius: "8px" }}
               >
@@ -84,7 +84,7 @@ export function WorkspaceShell({ user }: { user: AuthenticatedUser }) {
 
           <div className="border border-[var(--line)] bg-[var(--bg1)]" style={{ borderRadius: "12px" }}>
             {copy.onboardingSteps.map((step, index) => (
-              <div key={step.title} className="grid gap-4 border-b border-[var(--line)] p-5 last:border-b-0 md:grid-cols-[52px_1fr_110px] md:items-start">
+              <div key={step.title} className="pressable-row grid gap-4 border-b border-[var(--line)] p-5 last:border-b-0 md:grid-cols-[52px_1fr_110px] md:items-start">
                 <span className="mono-label text-[var(--text-faint)]">0{index + 1}</span>
                 <div>
                   <h3 className="font-semibold">{step.title}</h3>

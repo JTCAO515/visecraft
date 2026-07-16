@@ -11,7 +11,7 @@ export function LanguageSwitch({ compact = false }: { compact?: boolean }) {
   return (
     <div
       aria-label="Language switcher"
-      className="inline-flex items-center gap-1 border border-[var(--line-hi)] bg-[var(--surface)] p-1"
+      className="inline-flex items-center gap-1 border border-[var(--line-hi)] bg-[var(--bg2)] p-1"
       role="group"
       style={{ borderRadius: "8px" }}
     >
@@ -19,7 +19,7 @@ export function LanguageSwitch({ compact = false }: { compact?: boolean }) {
       {options.map((option) => (
         <button
           aria-pressed={locale === option}
-          className="h-8 px-2.5 text-xs font-medium transition"
+          className="pressable h-8 px-2.5 text-xs font-medium transition"
           key={option}
           onClick={() => setLocale(option)}
           style={{

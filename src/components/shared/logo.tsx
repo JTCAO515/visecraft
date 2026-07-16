@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function ViseCraftMark({ href = "/" }: { href?: string }) {
   return (
-    <Link aria-label="ViseCraft home" className="flex items-center gap-3" href={href}>
+    <Link aria-label="ViseCraft home" className="pressable flex items-center gap-3" href={href}>
       <span className="grid size-8 place-items-center" aria-hidden="true">
         <span className="relative block size-7">
           <span className="absolute bottom-0 left-[5px] h-7 w-3 origin-bottom rotate-[-20deg] rounded-[3px] bg-[var(--jade)]" />

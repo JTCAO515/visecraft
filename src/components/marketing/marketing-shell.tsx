@@ -23,12 +23,12 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[rgba(6,9,11,0.97)]">
-        <div className="content-rail flex h-16 items-center justify-between">
+      <header className="floating-page-header">
+        <div className="content-rail material-chrome flex h-14 items-center justify-between px-4">
           <ViseCraftMark />
           <nav className="hidden items-center gap-8 text-sm text-[var(--text-dim)] lg:flex" aria-label={copy.a11y.primaryNavigation}>
             {copy.navItems.map((item) => (
-              <a key={item.href} className="transition hover:text-[var(--text)]" href={item.href}>
+              <a key={item.href} className="floating-nav-link" href={item.href}>
                 {item.label}
               </a>
             ))}
@@ -36,7 +36,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
           <div className="hidden items-center gap-3 lg:flex">
             <LanguageSwitch compact />
             <Link
-              className="text-sm text-[var(--text-dim)] transition hover:text-[var(--text)]"
+              className="floating-nav-link pressable text-sm text-[var(--text-dim)] hover:text-[var(--text)]"
               href="/login"
               onClick={() => trackEvent("sign_in_click")}
             >
@@ -52,7 +52,7 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
           <button
             aria-expanded={mobileOpen}
             aria-label={copy.a11y.toggleNavigation}
-            className="inline-flex size-10 items-center justify-center border border-[var(--line-hi)] text-[var(--text)] lg:hidden"
+            className="pressable inline-flex size-10 items-center justify-center border border-[var(--line-hi)] text-[var(--text)] lg:hidden"
             onClick={() => setMobileOpen((value) => !value)}
             style={{ borderRadius: "8px" }}
           >
@@ -60,12 +60,12 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         {mobileOpen ? (
-          <div className="border-t border-[var(--line)] bg-[var(--bg1)] lg:hidden">
-            <nav className="content-rail flex flex-col py-4 text-sm text-[var(--text-dim)]">
+          <div className="content-rail material-thick mt-2 lg:hidden">
+            <nav className="flex flex-col px-4 py-3 text-sm text-[var(--text-dim)]">
               {copy.navItems.map((item) => (
                 <a
                   key={item.href}
-                  className="border-b border-[var(--line)] py-3"
+                  className="pressable-row border-b border-[var(--line)] py-3"
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                 >

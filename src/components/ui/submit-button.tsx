@@ -17,7 +17,7 @@ export function SubmitButton({
     <button
       {...buttonProps}
       aria-busy={loading}
-      className={`flex h-11 w-full items-center justify-center gap-2 bg-[var(--jade)] text-sm font-semibold text-[#04100b] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+      className={`pressable flex h-12 w-full items-center justify-center gap-2 bg-[var(--jade)] text-sm font-semibold text-[#04100b] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
       disabled={disabled || loading}
       style={{ borderRadius: "var(--radius-sm)" }}
       type={buttonProps.type ?? "submit"}

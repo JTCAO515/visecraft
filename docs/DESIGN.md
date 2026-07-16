@@ -32,6 +32,17 @@ API calls from interactive components use `apiFetch` in `src/lib/api/client.ts`.
 
 Motion uses the existing reduced-motion override. Skeleton breathing is the only continuous state animation and must remain restrained.
 
+## Interaction and Material
+
+The frontend interaction model follows the Apple Design Skill principles of immediate feedback, spatial consistency and purposeful material without imitating an Apple product surface.
+
+- Interactive controls respond on pointer-down through the shared `pressable` or `pressable-row` behavior. The response is short, interruptible and disabled when reduced motion is requested.
+- Translucency belongs only to floating navigation or tool chrome where it preserves context. Content surfaces stay opaque to avoid stacked glass, weakened contrast and decorative blur.
+- `prefers-reduced-transparency` removes backdrop effects. `prefers-contrast: more` strengthens dividers and secondary text. Keyboard focus remains visible through the global focus rule.
+- Geist remains the product typeface because it matches the established editorial engineering language; optical sizing, size-specific tracking and restrained leading improve clarity at both display and interface sizes.
+- Auth entry points keep the form on the left and a read-only product interface on the right. This preserves product continuity while keeping the user task primary.
+- Gesture-driven springs are intentionally not introduced: the current product has no drag, swipe or direct-manipulation workflow that would benefit from simulated physics.
+
 ## Marketing Homepage System
 
 The homepage uses a single-focus section rhythm rather than a card-dense landing-page grid:

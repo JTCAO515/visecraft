@@ -10,17 +10,17 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-[var(--bg0)] text-[var(--text)]">
-      <header className="border-b border-[var(--line)] bg-[var(--bg1)]">
-        <div className="content-rail flex h-16 items-center justify-between">
+      <header className="floating-page-header">
+        <div className="content-rail material-chrome flex h-14 items-center justify-between px-4">
           <ViseCraftMark />
-          <Link className="text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/">
+          <Link className="pressable text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href="/">
             Home
           </Link>
         </div>
       </header>
-      <section className="content-rail max-w-3xl py-14">
+      <section className="content-rail max-w-3xl py-20 md:py-28">
         <p className="mono-label text-[var(--jade)]">ViseCraft</p>
-        <h1 className="mt-4 text-5xl font-semibold">Terms</h1>
+        <h1 className="mt-4 text-5xl font-semibold leading-none tracking-[-0.04em] md:text-7xl">Terms</h1>
         <p className="mt-5 leading-7 text-[var(--text-dim)]">
           These early access terms are a product placeholder, not a final commercial contract. They exist so the landing page does not point to a dead link.
         </p>

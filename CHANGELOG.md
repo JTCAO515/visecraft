@@ -12,6 +12,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Vis
 - Grouped product capabilities by fundraising, recurring reporting and living-site publishing scenarios.
 - Added separate BP Studio, integration roadmap, Free/Pro comparison, live case-study and FAQ sections with bilingual content.
 - Standardized reusable marketing actions, section introductions, plan cards, FAQ rows and final CTA composition.
+- Refined the frontend with immediate press feedback, floating functional chrome, optical typography and reduced-transparency/high-contrast fallbacks.
+- Rebuilt login and signup around a focused left-side form and a continuous Proof Engine product preview.
+- Aligned workspace, verification, legal and project-setup page chrome with the same spatial and interaction rules.
 
 ## [1.0.4] - 2026-07-15
 

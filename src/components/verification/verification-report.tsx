@@ -24,9 +24,9 @@ export function VerificationReportView({
 }) {
   return (
     <main className="min-h-screen bg-[var(--bg0)] text-[var(--text)]">
-      <header className="border-b border-[var(--line)] bg-[var(--bg1)]">
-        <div className="content-rail flex min-h-16 flex-wrap items-center justify-between gap-4 py-4">
-          <Link className="text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href={`/app/projects/${projectId}/verification`}>
+      <header className="floating-page-header">
+        <div className="content-rail material-chrome flex min-h-14 flex-wrap items-center justify-between gap-4 px-4 py-3">
+          <Link className="pressable text-sm text-[var(--text-dim)] hover:text-[var(--text)]" href={`/app/projects/${projectId}/verification`}>
             ← Verification dashboard
           </Link>
           <p className="mono-label text-[var(--jade)]">Proof Engine v{proofEngineVersion}</p>
@@ -80,13 +80,13 @@ export function VerificationReportView({
             <div className="surface p-5">
               <p className="mono-label text-[var(--text-faint)]">Actions</p>
               <div className="mt-4 grid gap-3 text-sm">
-                <button className="border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
+                <button className="pressable border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
                   Add evidence (coming soon)
                 </button>
-                <button className="border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
+                <button className="pressable border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
                   Re-run verification (server action next)
                 </button>
-                <button className="border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
+                <button className="pressable border border-[var(--line-hi)] px-3 py-2 text-left text-[var(--text-dim)]" type="button" style={{ borderRadius: "8px" }}>
                   Edit source claim (invalidates result)
                 </button>
               </div>
@@ -147,7 +147,7 @@ export function VerificationReportView({
                   const isPublic = item.visibility === "public" || item.visibility === "public_summary";
 
                   return (
-                    <div key={item.id} className="grid gap-3 border-b border-[var(--line)] p-5 last:border-b-0 md:grid-cols-[1fr_140px]">
+                    <div key={item.id} className="pressable-row grid gap-3 border-b border-[var(--line)] p-5 last:border-b-0 md:grid-cols-[1fr_140px]">
                       <div>
                         <p className="font-semibold">{item.sourceTitle}</p>
                         <p className="mt-2 text-sm leading-6 text-[var(--text-dim)]">
