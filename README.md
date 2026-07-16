@@ -45,15 +45,17 @@ Open `http://localhost:3000`.
 
 ### Continuous Integration
 
-GitHub Actions runs on every pull request and every push to `main`. The CI job installs dependencies with `npm ci`, then requires lint, TypeScript and the production build to pass using preview-auth environment values only:
+GitHub Actions runs on every pull request and every push to `main`. The quality and Playwright jobs use preview-auth environment values only. Run the same checks locally with:
 
 ```bash
 npm run lint
 npx tsc --noEmit
 npm run build
+npx playwright install chromium
+npm run test:e2e
 ```
 
-The workflow contains no production credentials or repository secrets. The test step is reserved but remains disabled until the test runner lands in Issue #2.
+The three Chromium smoke tests cover the public authentication entry points, the `/app` authentication boundary and the VisePanda verification dashboard/report flow. They use preview auth without Supabase or GitHub secrets, and dashboard assertions do not depend on a specific external-source verdict. The unit-test step remains reserved until Issue #2 lands.
 
 ## Environment Variables
 
