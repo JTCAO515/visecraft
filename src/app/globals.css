@@ -651,6 +651,79 @@ button {
   border-bottom: 0;
 }
 
+.release-history {
+  position: relative;
+  border-top: 1px solid var(--line-hi);
+}
+
+.release-history::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.38rem;
+  width: 1px;
+  background: var(--line);
+  content: "";
+}
+
+.release-report {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  padding: 2rem 0 2rem 2.5rem;
+}
+
+.release-report-current {
+  background: var(--bg1);
+  box-shadow: inset 2px 0 0 var(--jade);
+}
+
+.release-report-marker {
+  position: absolute;
+  top: 2.35rem;
+  left: 0;
+  display: grid;
+  width: 0.8rem;
+  place-items: center;
+}
+
+.release-report-marker span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--text-faint);
+  border-radius: 999px;
+  background: var(--bg0);
+}
+
+.release-report-current .release-report-marker span {
+  border-color: var(--jade);
+  background: var(--jade);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+}
+
+.release-report-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.release-report-header time {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.release-report-body {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.release-report-body > div {
+  min-width: 0;
+}
+
 .pricing-card {
   display: flex;
   min-width: 0;
@@ -784,6 +857,20 @@ button {
 
   .workflow-step:last-child {
     border-right: 0;
+  }
+
+  .release-report {
+    grid-template-columns: minmax(14rem, 0.34fr) minmax(0, 0.66fr);
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+
+  .release-report-marker {
+    top: 2.85rem;
+  }
+
+  .release-report-body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

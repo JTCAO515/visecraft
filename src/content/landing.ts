@@ -2,7 +2,7 @@ export type Locale = "en" | "zh";
 export type ViewModeId = "founder" | "investor" | "public";
 export type SignalTone = "jade" | "blue" | "amber" | "rose" | "neutral";
 
-export const productVersion = "1.0.4";
+export const productVersion = "1.0.11";
 
 export const localeLabels: Record<Locale, string> = {
   en: "EN",
@@ -118,6 +118,26 @@ export interface LandingCopy {
     title: string;
     steps: Array<{ number: string; title: string; body: string }>;
   };
+  releaseHistory: {
+    title: string;
+    body: string;
+    currentLabel: string;
+    labels: {
+      delivered: string;
+      productImpact: string;
+      evidence: string;
+    };
+    items: Array<{
+      version: string;
+      date: string;
+      title: string;
+      delivered: string;
+      productImpact: string;
+      evidence: string;
+      evidenceStatus: "Code-backed" | "Source-linked";
+      sourceHref?: string;
+    }>;
+  };
   plans: {
     title: string;
     body: string;
@@ -161,7 +181,7 @@ export const landingContent: Record<Locale, LandingCopy> = {
       { label: "Use cases", href: "#use-cases" },
       { label: "BP Studio", href: "#bp-studio" },
       { label: "Integrations", href: "#integrations" },
-      { label: "Plans", href: "#plans" },
+      { label: "Releases", href: "#releases" },
     ],
     actions: {
       signIn: "Sign in",
@@ -222,7 +242,7 @@ export const landingContent: Record<Locale, LandingCopy> = {
         tone: "jade",
       },
       {
-        title: "The published product version is v1.0.4.",
+        title: "The published product version is v1.0.11.",
         source: "Package metadata",
         verdict: "Source-linked",
         freshness: "Current",
@@ -362,6 +382,87 @@ export const landingContent: Record<Locale, LandingCopy> = {
         { number: "05", title: "Publish", body: "Share one living site for investor, founder or public readers." },
       ],
     },
+    releaseHistory: {
+      title: "Seven releases. One product record anyone can inspect.",
+      body: "Each report separates what shipped, why it matters and which repository evidence supports it. The sequence records completed work without turning activity into unsupported business claims.",
+      currentLabel: "Current release",
+      labels: {
+        delivered: "What shipped",
+        productImpact: "Product meaning",
+        evidence: "Release evidence",
+      },
+      items: [
+        {
+          version: "1.0.5",
+          date: "2026-07-16",
+          title: "Engineering governance",
+          delivered: "Added the pull-request quality gate, evidence-bounded changelog and synchronized project handoff records.",
+          productImpact: "Every change now has a repeatable path from implementation to documented verification.",
+          evidence: "CI workflow and repository documentation",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/76a3e76",
+        },
+        {
+          version: "1.0.6",
+          date: "2026-07-16",
+          title: "Application boundaries",
+          delivered: "Separated marketing, authenticated application and reserved public routes while keeping shared concerns explicit.",
+          productImpact: "Public storytelling and private project workflows can evolve without sharing accidental route behavior.",
+          evidence: "App Router restructuring",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/bec584f",
+        },
+        {
+          version: "1.0.7",
+          date: "2026-07-16",
+          title: "Shared product states",
+          delivered: "Introduced reusable loading, empty, error, notification, field and submission primitives.",
+          productImpact: "Core workflows now communicate progress and failure through one consistent interaction language.",
+          evidence: "Shared UI state primitives",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/f12edfc",
+        },
+        {
+          version: "1.0.8",
+          date: "2026-07-16",
+          title: "Browser acceptance coverage",
+          delivered: "Added Playwright coverage for public entry, preview authentication, workspace protection and Proof Engine reports.",
+          productImpact: "The main investor-facing and authenticated paths are checked in a real browser before release.",
+          evidence: "Chromium smoke suite",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/ccd12a3",
+        },
+        {
+          version: "1.0.9",
+          date: "2026-07-16",
+          title: "Commercial product narrative",
+          delivered: "Rebuilt the homepage around Proof Engine, scenario-led capabilities, BP Studio, integrations, plans and evidence-aware FAQs.",
+          productImpact: "Visitors can understand verification, BP production and publishing as one connected SaaS workflow.",
+          evidence: "Homepage workflow release",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/636adce",
+        },
+        {
+          version: "1.0.10",
+          date: "2026-07-17",
+          title: "Apple interaction refinement",
+          delivered: "Added immediate press feedback, functional floating materials, optical typography and a product-continuous auth layout.",
+          productImpact: "The public site and application now feel like one focused, responsive product across desktop and mobile.",
+          evidence: "Frontend design release",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/2787247",
+        },
+        {
+          version: "1.0.11",
+          date: "2026-07-17",
+          title: "Versioned product reports",
+          delivered: "Published a bilingual, evidence-linked report for every release from v1.0.5 through the current version.",
+          productImpact: "ViseCraft now demonstrates its own living-project-story model through an inspectable product history.",
+          evidence: "Current repository release",
+          evidenceStatus: "Source-linked",
+        },
+      ],
+    },
     plans: {
       title: "Start with one project. Upgrade when the reporting load grows.",
       body: "The M1 plan structure is defined; paid pricing will be published when billing opens.",
@@ -426,7 +527,7 @@ export const landingContent: Record<Locale, LandingCopy> = {
       { label: "使用场景", href: "#use-cases" },
       { label: "BP Studio", href: "#bp-studio" },
       { label: "集成生态", href: "#integrations" },
-      { label: "方案", href: "#plans" },
+      { label: "版本", href: "#releases" },
     ],
     actions: {
       signIn: "登录",
@@ -487,7 +588,7 @@ export const landingContent: Record<Locale, LandingCopy> = {
         tone: "jade",
       },
       {
-        title: "当前公开产品版本为 v1.0.4。",
+        title: "当前公开产品版本为 v1.0.11。",
         source: "Package metadata",
         verdict: "来源链接",
         freshness: "当前",
@@ -623,6 +724,87 @@ export const landingContent: Record<Locale, LandingCopy> = {
         { number: "03", title: "审核", body: "只把有意义的事件晋升到时间轴和 BP。" },
         { number: "04", title: "验证", body: "逐条检查重要声明的证据、时效和矛盾。" },
         { number: "05", title: "发布", body: "用一个动态网站服务投资人、创始人或公开读者。" },
+      ],
+    },
+    releaseHistory: {
+      title: "七次发布，一份任何人都能检查的产品记录。",
+      body: "每份汇报都区分已经交付的内容、产品意义和支持它的仓库证据，不把开发活动夸大成未经支持的商业成果。",
+      currentLabel: "当前版本",
+      labels: {
+        delivered: "本版交付",
+        productImpact: "产品意义",
+        evidence: "版本证据",
+      },
+      items: [
+        {
+          version: "1.0.5",
+          date: "2026-07-16",
+          title: "工程治理",
+          delivered: "加入 Pull Request 质量门禁、证据有界的 Changelog 和同步的项目交接记录。",
+          productImpact: "每次变更都有从实施到文档化验证的可重复路径。",
+          evidence: "CI 工作流与仓库文档",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/76a3e76",
+        },
+        {
+          version: "1.0.6",
+          date: "2026-07-16",
+          title: "应用边界",
+          delivered: "拆分营销页、登录后应用和预留公开发布路由，并明确共享模块的责任。",
+          productImpact: "公开项目故事与私有项目工作流可以独立演进，不再意外共享路由行为。",
+          evidence: "App Router 结构调整",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/bec584f",
+        },
+        {
+          version: "1.0.7",
+          date: "2026-07-16",
+          title: "统一产品状态",
+          delivered: "建立可复用的加载、空状态、错误、通知、表单字段和提交组件。",
+          productImpact: "核心流程用一致的交互语言表达进度、失败和下一步操作。",
+          evidence: "共享 UI 状态组件",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/f12edfc",
+        },
+        {
+          version: "1.0.8",
+          date: "2026-07-16",
+          title: "浏览器验收覆盖",
+          delivered: "加入公开入口、预览登录、工作区保护和 Proof Engine 报告的 Playwright 测试。",
+          productImpact: "面向投资人的公开路径与核心登录路径会在发布前经过真实浏览器检查。",
+          evidence: "Chromium 冒烟测试",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/ccd12a3",
+        },
+        {
+          version: "1.0.9",
+          date: "2026-07-16",
+          title: "商业化产品叙事",
+          delivered: "围绕 Proof Engine、场景化能力、BP Studio、集成生态、方案和证据边界 FAQ 重建首页。",
+          productImpact: "访客可以把验证、商业 BP 制作和动态发布理解为同一条 SaaS 工作流。",
+          evidence: "首页工作流版本",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/636adce",
+        },
+        {
+          version: "1.0.10",
+          date: "2026-07-17",
+          title: "Apple 交互优化",
+          delivered: "加入即时按压反馈、功能性浮动材质、光学排版和延续产品界面的登录布局。",
+          productImpact: "官网和应用在桌面及移动端形成统一、聚焦且响应及时的产品体验。",
+          evidence: "前端设计版本",
+          evidenceStatus: "Code-backed",
+          sourceHref: "https://github.com/JTCAO515/visecraft/commit/2787247",
+        },
+        {
+          version: "1.0.11",
+          date: "2026-07-17",
+          title: "版本化产品汇报",
+          delivered: "发布从 v1.0.5 到当前版本的双语、证据可追溯产品汇报。",
+          productImpact: "ViseCraft 开始用自己的可检查产品历史，展示动态项目故事能力。",
+          evidence: "当前仓库版本",
+          evidenceStatus: "Source-linked",
+        },
       ],
     },
     plans: {

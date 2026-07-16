@@ -22,6 +22,12 @@ test("visitor can load the landing page and reach authentication", async ({ page
     }),
   ).toBeVisible();
 
+  const releases = page.locator("#releases");
+  await expect(releases.getByRole("heading", { name: "Seven releases. One product record anyone can inspect." })).toBeVisible();
+  for (const version of ["1.0.5", "1.0.6", "1.0.7", "1.0.8", "1.0.9", "1.0.10", "1.0.11"]) {
+    await expect(releases.getByText(`v${version}`, { exact: true })).toBeVisible();
+  }
+
   await page.getByRole("link", { name: "Sign in", exact: true }).first().click();
   await expect(page).toHaveURL(/\/login$/);
   await expect(page.getByRole("heading", { name: "Welcome back to ViseCraft." })).toBeVisible();

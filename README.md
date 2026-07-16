@@ -1,6 +1,6 @@
 # ViseCraft
 
-Current product version: `v1.0.4`
+Current product version: `v1.0.11`
 
 Turn every project in motion into a verifiable, living business story.
 
@@ -12,7 +12,7 @@ It is not a VisePanda feature. VisePanda is an independent AI travel software pr
 
 ## Current Status
 
-The `v1.0.4` foundation includes:
+The `v1.0.11` foundation includes:
 
 - Public launch page with product positioning, capabilities, workflow, VisePanda demo, use cases, privacy, pricing preview and CTA paths.
 - Login and signup entry.
@@ -23,6 +23,7 @@ The `v1.0.4` foundation includes:
 - Homepage positioning centered on the living project-story platform, with Proof Engine as the core verification layer.
 - SEO metadata, Open Graph image, sitemap and robots.
 - Supabase auth foundation migration with RLS.
+- Bilingual, evidence-linked product release reports for v1.0.5 through v1.0.11 on the public homepage.
 
 ## Tech Stack
 

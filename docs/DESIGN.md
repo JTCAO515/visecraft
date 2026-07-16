@@ -1,6 +1,6 @@
 # Design System
 
-ViseCraft v1.0.4 uses the VP Timeline dark evidence-first design system.
+ViseCraft v1.0.11 uses the VP Timeline dark evidence-first design system.
 
 Reference concept:
 
@@ -14,7 +14,7 @@ Core rules:
 - Evidence levels are UI primitives, not decoration.
 - Pages should prefer rails, rows, timelines, dividers and aligned columns over card-heavy dashboards.
 - Product copy, metrics, evidence records and business claims belong in content/data modules.
-- Language switching is client-side in v1.0.4. Shared locale state lives in `src/lib/i18n/use-locale.ts`, the switcher lives in `src/components/shared/language-switch.tsx`, and bilingual copy lives in `src/content`.
+- Language switching is client-side. Shared locale state lives in `src/lib/i18n/use-locale.ts`, the switcher lives in `src/components/shared/language-switch.tsx`, and bilingual copy lives in `src/content`.
 
 ## UI State Primitives
 
@@ -64,3 +64,5 @@ Reusable marketing composition lives in `src/components/marketing/marketing-prim
 - `MarketingCta`: shared closing action layout.
 
 All visible homepage product copy, plan boundaries, integration states, FAQ answers and demo claims remain in `src/content/landing.ts`. Components own only layout and interaction.
+
+The release-history rail uses the same discipline: every entry states what shipped, its product meaning and a bounded evidence source. It may report repository-backed delivery, but must not translate code activity into adoption, revenue or investment claims.

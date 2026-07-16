@@ -25,7 +25,7 @@ export default function TermsPage() {
           These early access terms are a product placeholder, not a final commercial contract. They exist so the landing page does not point to a dead link.
         </p>
         {[
-          ["Early access", "ViseCraft v1.0.4 is an MVP surface for product validation, investor demos and early user interviews."],
+          ["Early access", "ViseCraft v1.0.11 is an MVP surface for product validation, investor demos and early user interviews."],
           ["No fabricated evidence", "Users are responsible for reviewing generated narratives and keeping published project claims accurate."],
           ["Repository data", "Connecting a repository should be treated as a separate authorization step from account login."],
           ["Commercial plans", "Pricing is marked as preview until a formal plan is published."],

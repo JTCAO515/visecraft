@@ -33,7 +33,7 @@ VisePanda is only the first live case study and demo project.
 
 ## Product Versioning
 
-- The current ViseCraft product version is `v1.0.4`.
+- The current ViseCraft product version is `v1.0.11`.
 - Every completed product iteration increments only the patch number: `v1.0.5`, `v1.0.6`, and so on.
 - Keep `package.json`, the public version display, `README.md`, `CHANGELOG.md`, `docs/INDEX.md` and the project timeline synchronized in the same commit.
 - Add a timeline version only for a completed iteration with truthful supporting evidence; never pre-create or fabricate a release event.

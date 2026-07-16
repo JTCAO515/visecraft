@@ -64,11 +64,12 @@ export function LandingPage() {
 
       <IntegrationsSection copy={copy} />
       <WorkflowSection copy={copy} />
+      <ReleaseHistorySection copy={copy} />
       <PlansSection copy={copy} />
       <CaseStudySection copy={copy} />
 
       <section className="content-rail py-20 md:py-28" id="faq">
-        <SectionIntro number="08" title={copy.faq.title} />
+        <SectionIntro number="09" title={copy.faq.title} />
         <div className="mt-12 md:ml-[25%]">
           <FaqList items={copy.faq.items} />
         </div>
@@ -564,10 +565,64 @@ function WorkflowSection({ copy }: { copy: LandingCopy }) {
   );
 }
 
+function ReleaseHistorySection({ copy }: { copy: LandingCopy }) {
+  return (
+    <section className="content-rail py-20 md:py-28" id="releases">
+      <SectionIntro number="06" title={copy.releaseHistory.title} body={copy.releaseHistory.body} />
+      <div className="release-history mt-14">
+        {copy.releaseHistory.items.map((release) => {
+          const isCurrent = release.version === productVersion;
+
+          return (
+            <article className={`release-report${isCurrent ? " release-report-current" : ""}`} key={release.version}>
+              <div className="release-report-marker" aria-hidden="true">
+                <span />
+              </div>
+              <header className="release-report-header">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="font-mono text-sm text-[var(--jade)]">v{release.version}</span>
+                    {isCurrent ? <EvidenceBadge label={copy.releaseHistory.currentLabel} tone="jade" /> : null}
+                  </div>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-[-0.025em]">{release.title}</h3>
+                </div>
+                <time className="mono-label text-[var(--text-faint)]" dateTime={release.date}>{release.date}</time>
+              </header>
+              <div className="release-report-body">
+                <div>
+                  <p className="mono-label text-[var(--text-faint)]">{copy.releaseHistory.labels.delivered}</p>
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">{release.delivered}</p>
+                </div>
+                <div>
+                  <p className="mono-label text-[var(--text-faint)]">{copy.releaseHistory.labels.productImpact}</p>
+                  <p className="mt-3 text-sm leading-6 text-[var(--text-dim)]">{release.productImpact}</p>
+                </div>
+                <div>
+                  <p className="mono-label text-[var(--text-faint)]">{copy.releaseHistory.labels.evidence}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                    <EvidenceBadge label={release.evidenceStatus} tone={release.evidenceStatus === "Code-backed" ? "jade" : "blue"} />
+                    {release.sourceHref ? (
+                      <a className="pressable inline-flex items-center gap-2 text-sm text-[var(--blue)]" href={release.sourceHref} rel="noreferrer" target="_blank">
+                        {release.evidence} <ExternalLink aria-hidden="true" size={13} />
+                      </a>
+                    ) : (
+                      <span className="text-sm text-[var(--text-dim)]">{release.evidence}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function PlansSection({ copy }: { copy: LandingCopy }) {
   return (
     <section className="content-rail py-20 md:py-28" id="plans">
-      <SectionIntro number="06" title={copy.plans.title} body={copy.plans.body} />
+      <SectionIntro number="07" title={copy.plans.title} body={copy.plans.body} />
       <div className="mt-10 flex items-center gap-3 border-l border-[var(--amber)] pl-4 text-sm text-[var(--text-dim)]">
         <LockKeyhole aria-hidden="true" className="text-[var(--amber)]" size={16} />
         <span>{copy.plans.pending}</span>
@@ -590,7 +645,7 @@ function CaseStudySection({ copy }: { copy: LandingCopy }) {
   return (
     <section className="section-band" id="demo">
       <div className="content-rail py-20 md:py-28">
-        <SectionIntro number="07" title={copy.caseStudy.title} body={copy.caseStudy.body} />
+        <SectionIntro number="08" title={copy.caseStudy.title} body={copy.caseStudy.body} />
         <div className="case-study mt-14">
           <div className="case-study-project">
             <div className="flex items-center gap-3">
