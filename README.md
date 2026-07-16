@@ -43,6 +43,18 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+### Continuous Integration
+
+GitHub Actions runs on every pull request and every push to `main`. The CI job installs dependencies with `npm ci`, then requires lint, TypeScript and the production build to pass using preview-auth environment values only:
+
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+The workflow contains no production credentials or repository secrets. The test step is reserved but remains disabled until the test runner lands in Issue #2.
+
 ## Environment Variables
 
 For local preview without a Supabase project:
